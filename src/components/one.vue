@@ -1,6 +1,7 @@
 <template>
     <div>
       <h1>{{ msg }}</h1>
+      <router-link to="/">返回</router-link>
       
     </div>
   </template>
