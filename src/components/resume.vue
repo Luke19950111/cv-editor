@@ -3,7 +3,16 @@
     <router-link to="/one">One</router-link>
     <router-link to="/two">Two</router-link>
     <button @click="initLeancloud">leancloud</button>
-
+    <el-button type='primary'>element</el-button>
+    <el-tooltip placement="top-start">
+      <el-button>上左</el-button>
+    </el-tooltip>
+    <el-time-select v-model="value" :picker-options="{
+    start: '08:30',
+    step: '00:15',
+    end: '18:30'
+    }" placeholder="选择时间">
+    </el-time-select>
   </div>
 </template>
 
@@ -12,7 +21,8 @@
     name: 'HelloWorld',
     data() {
       return {
-        msg: 'Welcome to Your Vue.js App'
+        msg: 'Welcome to Your Vue.js App',
+        value: ''
       }
     },
     methods: {
