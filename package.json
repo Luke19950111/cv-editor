@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "element-ui": "^2.10.1",
+    "js-beautify": "^1.10.0",
     "leancloud-storage": "^3.14.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"

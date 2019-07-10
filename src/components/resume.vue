@@ -1,18 +1,78 @@
 <template>
-  <div class="hello">
-    <router-link to="/one">One</router-link>
-    <router-link to="/two">Two</router-link>
-    <button @click="initLeancloud">leancloud</button>
-    <el-button type='primary'>element</el-button>
-    <el-tooltip placement="top-start">
-      <el-button>上左</el-button>
-    </el-tooltip>
-    <el-time-select v-model="value" :picker-options="{
-    start: '08:30',
-    step: '00:15',
-    end: '18:30'
-    }" placeholder="选择时间">
-    </el-time-select>
+  <div>
+    <el-row class='wrapper'>
+      <el-col
+        :lg='4'
+        class="left-aside"
+      >
+        <div class="left-item">保存</div>
+        <div class="left-item">保存</div>
+        <div class="left-item">保存</div>
+        <div class="left-item">保存</div>
+      </el-col>
+      <el-col :lg='20' class="right-content">
+        <div class="resume">
+          <section>
+            <h1>姓名</h1>
+            <p>信息|信息|信息|信息</p>
+          </section>
+          <section>
+            <h2>技能描述</h2>
+            <ul>
+              <li>
+                <span>技能1</span>
+                <p>技能描述</p>
+              </li>
+              <li>
+                <span>技能1</span>
+                <p>技能描述</p>
+              </li>
+              <li>
+                <span>技能1</span>
+                <p>技能描述</p>
+              </li>
+              <li>
+                <span>技能1</span>
+                <p>技能描述</p>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h2>项目经历</h2>
+            <ol>
+              <li>
+                <span>项目名称</span>
+                <span>关键词，关键词，关键词</span>
+                <span>描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述</span>
+                <span>http://xxx/xxx</span>
+                <span>cover</span>
+              </li>
+              <li>
+                <span>项目名称</span>
+                <span>关键词，关键词，关键词</span>
+                <span>描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述</span>
+                <span>http://xxx/xxx</span>
+                <span>cover</span>
+              </li>
+              <li>
+                <span>项目名称</span>
+                <span>关键词，关键词，关键词</span>
+                <span>描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述</span>
+                <span>http://xxx/xxx</span>
+                <span>cover</span>
+              </li>
+              <li>
+                <span>项目名称</span>
+                <span>关键词，关键词，关键词</span>
+                <span>描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述</span>
+                <span>http://xxx/xxx</span>
+                <span>cover</span>
+              </li>
+            </ol>
+          </section>
+        </div>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -51,24 +111,45 @@
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-  h1,
-  h2 {
-    font-weight: normal;
-  }
-
-  ul {
-    list-style-type: none;
+<style>
+  * {
+    margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+  }
+  *::after, *::before{
+    box-sizing: border-box;
+  }
+  a{
+    text-decoration: none;
+    color: inherit;
   }
 
-  li {
-    display: inline-block;
-    margin: 0 10px;
+</style>
+<style scoped>
+  .wrapper {
+    border: 1px solid black;
+    height: 100vh;
   }
 
-  a {
-    color: #42b983;
+  .left-aside{
+    height: 100%;
+    border: 1px solid red;
+    background: rgb(243, 243, 243)    
+  }
+  .left-aside .left-item{
+    background: rgb(255, 255, 255);
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .left-aside .left-item:hover{
+    box-shadow: 0 0 5px rgba(0,0,0,.3);
+  }
+  .right-content{
+    border: 1px solid green;
   }
 
 </style>
