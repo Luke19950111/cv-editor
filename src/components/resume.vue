@@ -17,28 +17,65 @@
             <p>信息|信息|信息|信息</p>
           </section>
           <section>
-            <h2>技能描述</h2>
-            <ul>
-              <li>
-                <span>技能1</span>
-                <p>技能描述</p>
-              </li>
-              <li>
-                <span>技能1</span>
-                <p>技能描述</p>
-              </li>
-              <li>
-                <span>技能1</span>
-                <p>技能描述</p>
-              </li>
-              <li>
-                <span>技能1</span>
-                <p>技能描述</p>
-              </li>
-            </ul>
+            <el-row>
+              <h2 class="skills">技能描述</h2>
+            </el-row>
+            <el-row>
+              <el-row :gutter='20'>
+                <el-col :lg='12' class="skill-item">
+                    <el-card class="box-card" shadow="hover">
+                      <div slot="header" class="clearfix">
+                        <span style="float: left;">卡片名称</span>
+                        <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+                      </div>
+                      <div>
+                        描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述
+                      </div>
+                    </el-card>
+                      
+                </el-col>
+                <el-col :lg='12' class="skill-item">
+                    <el-card class="box-card" shadow="hover">
+                      <div slot="header" class="clearfix">
+                        <span style="float: left;">卡片名称</span>
+                        <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+                      </div>
+                      <div>
+                        描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述
+                      </div>
+                    </el-card>
+                </el-col>
+              </el-row>
+            </el-row>
+            <el-row>
+              <el-row :gutter='20'>
+                <el-col :lg='12' class="skill-item">
+                    <el-card class="box-card" shadow="hover">
+                      <div slot="header" class="clearfix">
+                        <span style="float: left;">卡片名称</span>
+                        <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+                      </div>
+                      <div>
+                        描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述
+                      </div>
+                    </el-card>
+                </el-col>
+                <el-col :lg='12' class="skill-item">
+                    <el-card class="box-card" shadow="hover">
+                      <div slot="header" class="clearfix">
+                        <span style="float: left;">卡片名称</span>
+                        <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+                      </div>
+                      <div>
+                        描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述
+                      </div>
+                    </el-card>
+                </el-col>
+              </el-row>
+            </el-row>
           </section>
           <section>
-            <h2>项目经历</h2>
+            <h2 class="projects">项目经历</h2>
             <ol>
               <li>
                 <span>项目名称</span>
@@ -125,6 +162,14 @@
     text-decoration: none;
     color: inherit;
   }
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+  .clearfix:after {
+    clear: both
+  }
 
 </style>
 <style scoped>
@@ -147,9 +192,27 @@
   }
   .left-aside .left-item:hover{
     box-shadow: 0 0 5px rgba(0,0,0,.3);
+    transition: .3s;
   }
   .right-content{
     border: 1px solid green;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
   }
+  .right-content .resume{
+    border: 1px solid pink;
+    width: 60%;
+  }
+  .right-content .skills, .projects{
+    margin: 1em;
+  }
+  .skill-item{
+
+  }
+  .box-card{
+    margin: .5em 0;
+  }
+
 
 </style>
