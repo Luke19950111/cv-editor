@@ -13,8 +13,14 @@
       <el-col :lg='20' class="right-content">
         <div class="resume">
           <section>
-            <h1>姓名</h1>
-            <p>信息|信息|信息|信息</p>
+            <el-row class="name-row">
+              <h1 class="name">{{resume.name}}</h1>
+              <el-button class="name-edit-button" @click="onNameEdit">edit</el-button>
+            </el-row>
+            <el-row>
+              <p>应聘职位：{{resume.jobTitle}}</p>
+            </el-row>
+            <p>生日：{{resume.birthday}}|性别：{{resume.gender}}|电话：{{resume.phone}}|邮箱：{{resume.email}}|地址：{{resume.address}}</p>
           </section>
           <section>
             <el-row>
@@ -137,16 +143,32 @@
         </div>
       </el-col>
     </el-row>
+    <name-edit v-show="nameEditVisible" ref="nameEdit" @nameEdited="onNameEdited"></name-edit>
   </div>
 </template>
 
 <script>
+  import NameEdit from './name-edit'
   export default {
-    name: 'HelloWorld',
+    name: 'resume',
+    components: {
+      NameEdit,
+    },
     data() {
       return {
         msg: 'Welcome to Your Vue.js App',
-        value: ''
+        value: '',
+        resume: {
+          name: '张飞',
+          jobTitle: '三国第一谋士',
+          birthday: '约165年',
+          gender: '男',
+          phone: '15900000001',
+          email: 'zhangfei@shu.com',
+          address: '小沛'
+
+        },
+        nameEditVisible: false
       }
     },
     methods: {
@@ -168,7 +190,21 @@
         }).then(function (object) {
           alert('LeanCloud Rocks!');
         })
+      },
+      onNameEdit(){
+        this.nameEditVisible = true
+        this.$nextTick(()=>{
+          this.$refs.nameEdit.init()
+        })
+      },
+      onNameEdited(dataForm){
+        console.log(dataForm, 'dataFOrm')
+        /* for(i=0; i<this.resume.length; i++){
+          this.resume[i] = dataForm[i]
+        } */
       }
+
+
     },
   }
 
@@ -201,13 +237,11 @@
 </style>
 <style scoped>
   .wrapper {
-    border: 1px solid black;
     height: 100vh;
   }
 
   .left-aside{
     height: 100%;
-    border: 1px solid red;
     background: rgb(243, 243, 243)    
   }
   .left-aside .left-item{
@@ -220,34 +254,46 @@
   .left-aside .left-item:hover{
     box-shadow: 0 0 5px rgba(0,0,0,.3);
     transition: .3s;
+    transform: translateY(-5px);
   }
   .right-content{
-    border: 1px solid green;
     height: 100%;
     overflow: auto;
     display: flex;
     justify-content: center;
+    background: orange;
   }
   .right-content .resume{
     width: 60%;
   }
+  .name-row{
+    position: relative;
+  }
+  .name {
+    margin: 2rem;
+  }
+  .name-edit-button{
+    position: absolute;
+    top: 2rem;
+    right: 0;
+  }
   .right-content .skills, .projects{
-    margin: 1em;
+    margin: 1rem;
   }
   .skill-item{
 
   }
   .box-card{
-    margin: .5em 0;
+    margin: 0 0 1rem 0;
   }
 
   .project-card{
-    margin: .5em 0;
+    margin: 1rem 0;
   }
   .project-card-body{
     display: flex;
     justify-content: space-between;
-    margin-bottom: .5em;
+    margin-bottom: 1rem;
   }
   .project-description{
     text-align: left;
