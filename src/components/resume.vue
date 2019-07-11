@@ -76,36 +76,63 @@
           </section>
           <section>
             <h2 class="projects">项目经历</h2>
-            <ol>
-              <li>
-                <span>项目名称</span>
-                <span>关键词，关键词，关键词</span>
-                <span>描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述</span>
-                <span>http://xxx/xxx</span>
-                <span>cover</span>
-              </li>
-              <li>
-                <span>项目名称</span>
-                <span>关键词，关键词，关键词</span>
-                <span>描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述</span>
-                <span>http://xxx/xxx</span>
-                <span>cover</span>
-              </li>
-              <li>
-                <span>项目名称</span>
-                <span>关键词，关键词，关键词</span>
-                <span>描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述</span>
-                <span>http://xxx/xxx</span>
-                <span>cover</span>
-              </li>
-              <li>
-                <span>项目名称</span>
-                <span>关键词，关键词，关键词</span>
-                <span>描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述</span>
-                <span>http://xxx/xxx</span>
-                <span>cover</span>
-              </li>
-            </ol>
+            <el-card class="project-card" shadow="hover">
+              <div slot="header" class="clearfix">
+                <span style="float: left;">卡片名称</span>
+                <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+              </div>
+              <div>
+                <div class="project-card-body">
+                  <span>keyWords, keyWords, keyWords</span>
+                  <span>http://xxx/xxx</span>
+                </div>
+                <p class="project-description">描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述</p>
+                
+              </div>
+            </el-card>
+            <el-card class="project-card" shadow="hover">
+              <div slot="header" class="clearfix">
+                <span style="float: left;">卡片名称</span>
+                <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+              </div>
+              <div>
+                <div class="project-card-body">
+                  <span>keyWords, keyWords, keyWords</span>
+                  <span>http://xxx/xxx</span>
+                </div>
+                <p class="project-description">描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述</p>
+                
+              </div>
+            </el-card>
+            <el-card class="project-card" shadow="hover">
+              <div slot="header" class="clearfix">
+                <span style="float: left;">卡片名称</span>
+                <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+              </div>
+              <div>
+                <div class="project-card-body">
+                  <span>keyWords, keyWords, keyWords</span>
+                  <span>http://xxx/xxx</span>
+                </div>
+                <p class="project-description">描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述</p>
+                
+              </div>
+            </el-card>
+            <el-card class="project-card" shadow="hover">
+              <div slot="header" class="clearfix">
+                <span style="float: left;">卡片名称</span>
+                <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+              </div>
+              <div>
+                <div class="project-card-body">
+                  <span>keyWords, keyWords, keyWords</span>
+                  <span>http://xxx/xxx</span>
+                </div>
+                <p class="project-description">描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述</p>
+                
+              </div>
+            </el-card>
+            
           </section>
         </div>
       </el-col>
@@ -196,12 +223,12 @@
   }
   .right-content{
     border: 1px solid green;
+    height: 100%;
     overflow: auto;
     display: flex;
     justify-content: center;
   }
   .right-content .resume{
-    border: 1px solid pink;
     width: 60%;
   }
   .right-content .skills, .projects{
@@ -214,5 +241,17 @@
     margin: .5em 0;
   }
 
+  .project-card{
+    margin: .5em 0;
+  }
+  .project-card-body{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: .5em;
+  }
+  .project-description{
+    text-align: left;
+    text-indent: 2em;
+  }
 
 </style>
