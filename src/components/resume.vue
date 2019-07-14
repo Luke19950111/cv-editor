@@ -28,54 +28,17 @@
             </el-row>
             <el-row>
               <el-row :gutter='20'>
-                <el-col :lg='12' class="skill-item">
+                <el-col :lg='12' class="skill-item" v-for="(skill,index) in resume.skills" :key="index">
                     <el-card class="box-card" shadow="hover">
                       <div slot="header" class="clearfix">
-                        <span style="float: left;">卡片名称</span>
-                        <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+                        <span style="float: left;">{{skill.name}}</span>
+                        <el-button style="float: right; padding: 3px 0" type="text" @click="onSkillsEdit(index)">操作按钮</el-button>
                       </div>
                       <div>
-                        描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述
+                        {{skill.description}}
                       </div>
                     </el-card>
                       
-                </el-col>
-                <el-col :lg='12' class="skill-item">
-                    <el-card class="box-card" shadow="hover">
-                      <div slot="header" class="clearfix">
-                        <span style="float: left;">卡片名称</span>
-                        <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
-                      </div>
-                      <div>
-                        描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述
-                      </div>
-                    </el-card>
-                </el-col>
-              </el-row>
-            </el-row>
-            <el-row>
-              <el-row :gutter='20'>
-                <el-col :lg='12' class="skill-item">
-                    <el-card class="box-card" shadow="hover">
-                      <div slot="header" class="clearfix">
-                        <span style="float: left;">卡片名称</span>
-                        <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
-                      </div>
-                      <div>
-                        描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述
-                      </div>
-                    </el-card>
-                </el-col>
-                <el-col :lg='12' class="skill-item">
-                    <el-card class="box-card" shadow="hover">
-                      <div slot="header" class="clearfix">
-                        <span style="float: left;">卡片名称</span>
-                        <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
-                      </div>
-                      <div>
-                        描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述
-                      </div>
-                    </el-card>
                 </el-col>
               </el-row>
             </el-row>
@@ -144,15 +107,18 @@
       </el-col>
     </el-row>
     <name-edit v-show="nameEditVisible" ref="nameEdit" @nameEdited="onNameEdited"></name-edit>
+    <skill-edit v-show="skillEditVisible" ref="skillEdit" @skillEdited="onSkillEdited"></skill-edit>
   </div>
 </template>
 
 <script>
   import NameEdit from './name-edit'
+  import SkillEdit from './skill-edit'
   export default {
     name: 'resume',
     components: {
       NameEdit,
+      SkillEdit
     },
     data() {
       return {
@@ -165,10 +131,16 @@
           gender: '男',
           phone: '15900000001',
           email: 'zhangfei@shu.com',
-          address: '小沛'
-
+          address: '小沛',
+          skills: [
+            {name: '技能名称', description: '技能描述'},
+            {name: '技能名称', description: '技能描述'},
+            {name: '技能名称', description: '技能描述'},
+            {name: '技能名称', description: '技能描述'}
+          ]
         },
-        nameEditVisible: false
+        nameEditVisible: false,
+        skillEditVisible: false
       }
     },
     methods: {
@@ -194,14 +166,24 @@
       onNameEdit(){
         this.nameEditVisible = true
         this.$nextTick(()=>{
-          this.$refs.nameEdit.init()
+          this.$refs.nameEdit.init(this.resume)
         })
       },
       onNameEdited(dataForm){
         console.log(dataForm, 'dataFOrm')
-        /* for(i=0; i<this.resume.length; i++){
-          this.resume[i] = dataForm[i]
-        } */
+        this.resume = dataForm
+        
+      },
+
+      onSkillsEdit(index){
+        this.skillEditVisible = true
+        this.$nextTick(()=>{
+          this.$refs.skillEdit.init(this.resume.skills[index], index)
+        })
+      },
+      onSkillEdited(skills, index){
+        console.log(skills, index, 'xxxxx')
+        this.resume.skills[index] = skills
       }
 
 

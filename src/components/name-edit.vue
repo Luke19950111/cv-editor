@@ -7,22 +7,22 @@
                         <el-input v-model="dataForm.name" placeHolder="请输入姓名"></el-input>
                     </el-form-item>
                     <el-form-item label="应聘职位">
-                        <el-input v-model="dataForm.name" placeHolder="应聘职位"></el-input>
+                        <el-input v-model="dataForm.jobTitle" placeHolder="应聘职位"></el-input>
                     </el-form-item>
                     <el-form-item label="生日">
-                        <el-input v-model="dataForm.name" placeHolder="生日"></el-input>
+                        <el-input v-model="dataForm.birthday" placeHolder="生日"></el-input>
                     </el-form-item>
                     <el-form-item label="性别">
-                        <el-input v-model="dataForm.name" placeHolder="性别"></el-input>
+                        <el-input v-model="dataForm.gender" placeHolder="性别"></el-input>
                     </el-form-item>
                     <el-form-item label="电话">
-                        <el-input v-model="dataForm.name" placeHolder="电话"></el-input>
+                        <el-input v-model="dataForm.phone" placeHolder="电话"></el-input>
                     </el-form-item>
                     <el-form-item label="邮箱">
-                        <el-input v-model="dataForm.name" placeHolder="邮箱"></el-input>
+                        <el-input v-model="dataForm.email" placeHolder="邮箱"></el-input>
                     </el-form-item>
                     <el-form-item label="地址">
-                        <el-input v-model="dataForm.name" placeHolder="地址"></el-input>
+                        <el-input v-model="dataForm.address" placeHolder="地址"></el-input>
                     </el-form-item>
                 </el-form>
             </el-row>
@@ -51,8 +51,9 @@
             }
         },
         methods: {
-            init(){
+            init(resume){
                 this.visible = true
+                this.dataForm = resume
             },
             dataFormSubmit(){
                 console.log(this.dataForm, 'ddd')
