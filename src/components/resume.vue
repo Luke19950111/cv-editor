@@ -45,80 +45,41 @@
           </section>
           <section>
             <h2 class="projects">项目经历</h2>
-            <el-card class="project-card" shadow="hover">
+
+            <el-card class="project-card" shadow="hover" v-for="(project, index) in resume.projects" :key="index">
               <div slot="header" class="clearfix">
-                <span style="float: left;">卡片名称</span>
-                <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+                <span style="float: left;">{{project.name}}</span>
+                <el-button style="float: right; padding: 3px 0" type="text" @click="onProjectsEdit(index)">操作按钮</el-button>
               </div>
               <div>
                 <div class="project-card-body">
-                  <span>keyWords, keyWords, keyWords</span>
-                  <span>http://xxx/xxx</span>
+                  <span>{{project.keywords}}</span>
+                  <span>{{project.url}}</span>
                 </div>
-                <p class="project-description">描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述</p>
+                <p class="project-description">{{project.description}}</p>
                 
               </div>
             </el-card>
-            <el-card class="project-card" shadow="hover">
-              <div slot="header" class="clearfix">
-                <span style="float: left;">卡片名称</span>
-                <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
-              </div>
-              <div>
-                <div class="project-card-body">
-                  <span>keyWords, keyWords, keyWords</span>
-                  <span>http://xxx/xxx</span>
-                </div>
-                <p class="project-description">描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述</p>
-                
-              </div>
-            </el-card>
-            <el-card class="project-card" shadow="hover">
-              <div slot="header" class="clearfix">
-                <span style="float: left;">卡片名称</span>
-                <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
-              </div>
-              <div>
-                <div class="project-card-body">
-                  <span>keyWords, keyWords, keyWords</span>
-                  <span>http://xxx/xxx</span>
-                </div>
-                <p class="project-description">描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述</p>
-                
-              </div>
-            </el-card>
-            <el-card class="project-card" shadow="hover">
-              <div slot="header" class="clearfix">
-                <span style="float: left;">卡片名称</span>
-                <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
-              </div>
-              <div>
-                <div class="project-card-body">
-                  <span>keyWords, keyWords, keyWords</span>
-                  <span>http://xxx/xxx</span>
-                </div>
-                <p class="project-description">描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述</p>
-                
-              </div>
-            </el-card>
-            
           </section>
         </div>
       </el-col>
     </el-row>
     <name-edit v-show="nameEditVisible" ref="nameEdit" @nameEdited="onNameEdited"></name-edit>
     <skill-edit v-show="skillEditVisible" ref="skillEdit" @skillEdited="onSkillEdited"></skill-edit>
+    <project-edit v-show="projectEditVisible" ref="projectEdit" @projectEdited="onProjectEdited"></project-edit>
   </div>
 </template>
 
 <script>
   import NameEdit from './name-edit'
   import SkillEdit from './skill-edit'
+  import ProjectEdit from './project-edit'
   export default {
     name: 'resume',
     components: {
       NameEdit,
-      SkillEdit
+      SkillEdit,
+      ProjectEdit
     },
     data() {
       return {
@@ -137,10 +98,16 @@
             {name: '技能名称', description: '技能描述'},
             {name: '技能名称', description: '技能描述'},
             {name: '技能名称', description: '技能描述'}
+          ],
+          projects: [
+            {name: '项目名称', description: '项目描述', url: '项目链接', keywords: '关键字'},
+            {name: '项目名称', description: '项目描述', url: '项目链接', keywords: '关键字'},
+            {name: '项目名称', description: '项目描述', url: '项目链接', keywords: '关键字'}
           ]
         },
         nameEditVisible: false,
-        skillEditVisible: false
+        skillEditVisible: false,
+        projectEditVisible: false
       }
     },
     methods: {
@@ -184,7 +151,18 @@
       onSkillEdited(skills, index){
         console.log(skills, index, 'xxxxx')
         this.resume.skills[index] = skills
+      },
+
+      onProjectsEdit(index){
+        this.projectEditVisible = true
+        this.$nextTick(()=>{
+          this.$refs.projectEdit.init(this.resume.projects[index], index)
+        })
+      },
+      onProjectEdited(project, index){
+        this.resume.projects[index] = project
       }
+
 
 
     },
@@ -263,7 +241,7 @@
     margin: 1rem;
   }
   .skill-item{
-
+    height: 100%;
   }
   .box-card{
     margin: 0 0 1rem 0;
