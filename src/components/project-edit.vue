@@ -44,7 +44,8 @@
             init(project, index){
                 console.log(project, index, 'ii')
                 this.visible = true
-                this.dataForm = project
+                // this.dataForm = project
+                this.dataForm = JSON.parse(JSON.stringify(project))
                 this.index = index
             },
             dataFormSubmit(){

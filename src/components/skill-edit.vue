@@ -34,7 +34,7 @@
         methods: {
             init(skill, index){
                 this.visible = true
-                this.dataForm = skill
+                this.dataForm = JSON.parse(JSON.stringify(skill))
                 this.index = index
             },
             dataFormSubmit(){

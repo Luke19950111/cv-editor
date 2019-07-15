@@ -53,7 +53,7 @@
         methods: {
             init(resume){
                 this.visible = true
-                this.dataForm = resume
+                this.dataForm = JSON.parse(JSON.stringify(resume))
             },
             dataFormSubmit(){
                 console.log(this.dataForm, 'ddd')

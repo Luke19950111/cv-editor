@@ -151,6 +151,8 @@
       onSkillEdited(skills, index){
         console.log(skills, index, 'xxxxx')
         this.resume.skills[index] = skills
+        console.log(this.resume.skills[index], 'iii')
+        console.log(this.resume, 'resume')
       },
 
       onProjectsEdit(index){
