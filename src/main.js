@@ -10,6 +10,14 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(ElementUI)
 
+/* var AV = require('leancloud-storage');
+var APP_ID = 'a2KJgfG27jM91H5weSdUSqox-gzGzoHsz';
+var APP_KEY = 'fU28rPRP3cTSCQEULPfOHdkH';
+AV.init({
+  appId: APP_ID,
+  appKey: APP_KEY
+}); */
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
@@ -17,3 +25,4 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
+

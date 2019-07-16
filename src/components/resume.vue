@@ -5,13 +5,14 @@
         :lg='4'
         class="left-aside"
       >
-        <div class="left-item">保存</div>
+        <div class="left-item" @click="onSaveClick">保存</div>
         <div class="left-item">保存</div>
         <div class="left-item">保存</div>
         <div class="left-item">保存</div>
       </el-col>
       <el-col :lg='20' class="right-content">
         <div class="resume">
+          {{resume}}
           <section>
             <el-row class="name-row">
               <h1 class="name">{{resume.name}}</h1>
@@ -71,6 +72,16 @@
 </template>
 
 <script>
+  var AV = require('leancloud-storage');
+  var APP_ID = 'a2KJgfG27jM91H5weSdUSqox-gzGzoHsz';
+        var APP_KEY = 'fU28rPRP3cTSCQEULPfOHdkH';
+
+        AV.init({
+          appId: APP_ID,
+          appKey: APP_KEY
+        });
+
+
   import NameEdit from './name-edit'
   import SkillEdit from './skill-edit'
   import ProjectEdit from './project-edit'
@@ -110,25 +121,28 @@
         projectEditVisible: false
       }
     },
+    created() {
+      this.initLeancloud()
+    },
     methods: {
       initLeancloud() {
-        var AV = require('leancloud-storage');
+        // var AV = require('leancloud-storage');
 
-        var APP_ID = 'a2KJgfG27jM91H5weSdUSqox-gzGzoHsz';
+        /* var APP_ID = 'a2KJgfG27jM91H5weSdUSqox-gzGzoHsz';
         var APP_KEY = 'fU28rPRP3cTSCQEULPfOHdkH';
 
         AV.init({
           appId: APP_ID,
           appKey: APP_KEY
-        });
+        }); */
 
-        var TestObject = AV.Object.extend('TestObject');
+        /* var TestObject = AV.Object.extend('TestObject');
         var testObject = new TestObject();
         testObject.save({
           words: 'Hello World!'
         }).then(function (object) {
           alert('LeanCloud Rocks!');
-        })
+        }) */
       },
       onNameEdit(){
         this.nameEditVisible = true
@@ -150,7 +164,8 @@
       },
       onSkillEdited(skills, index){
         console.log(skills, index, 'xxxxx')
-        this.resume.skills[index] = skills
+        // this.resume.skills[index] = skills
+        this.resume.skills.splice(index, 1, skills);
         console.log(this.resume.skills[index], 'iii')
         console.log(this.resume, 'resume')
       },
@@ -162,7 +177,34 @@
         })
       },
       onProjectEdited(project, index){
-        this.resume.projects[index] = project
+        // this.resume.projects[index] = project
+        this.resume.projects.splice(index, 1, project)
+      },
+
+      onSaveClick(){
+
+        let currentUser = AV.User.current();
+        console.log(currentUser, 'user')
+        if (currentUser) {
+           // 跳转到首页
+        }
+        else {
+          //currentUser 为空时，可打开用户注册界面…
+          this.$confirm('未登录，是否登录?', '提示', {
+          confirmButtonText: '登录',
+          cancelButtonText: '取消',
+          type: 'warning'
+          }).then(() => {
+              window.location.href = window.location.href + 'login'
+          }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消保存'
+            });         
+          });
+
+
+        }
       }
 
 
