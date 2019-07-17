@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Resume from '@/components/resume'
 import Login from '@/components/login'
-import Two from '@/components/two'
+import Signin from '@/components/signin'
 
 Vue.use(Router)
 
@@ -20,9 +20,9 @@ export default new Router({
       component: Login
     },
     {
-      path: '/two',
-      name: 'two',
-      component: Two
+      path: '/signin',
+      name: 'signin',
+      component: Signin
     }
   ]
 })

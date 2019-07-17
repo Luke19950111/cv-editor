@@ -17,7 +17,7 @@
         </el-row>
         <el-row>
           <el-button type="text" class="to-sign-in">
-            <router-link to="/two">还没有账号，去注册</router-link>
+            <router-link to="/signin">还没有账号，去注册</router-link>
           </el-button>
           <el-button type="text" class="to-sign-in">
             <router-link to="/">返回编辑</router-link>

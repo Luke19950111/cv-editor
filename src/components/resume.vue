@@ -12,7 +12,6 @@
       </el-col>
       <el-col :lg='20' class="right-content">
         <div class="resume">
-          {{resume}}
           <section>
             <el-row class="name-row">
               <h1 class="name">{{resume.name}}</h1>
@@ -74,12 +73,11 @@
 <script>
   var AV = require('leancloud-storage');
   var APP_ID = 'a2KJgfG27jM91H5weSdUSqox-gzGzoHsz';
-        var APP_KEY = 'fU28rPRP3cTSCQEULPfOHdkH';
-
-        AV.init({
-          appId: APP_ID,
-          appKey: APP_KEY
-        });
+  var APP_KEY = 'fU28rPRP3cTSCQEULPfOHdkH';
+  AV.init({
+    appId: APP_ID,
+    appKey: APP_KEY
+  });
 
 
   import NameEdit from './name-edit'
@@ -199,7 +197,8 @@
           }).catch(() => {
             this.$message({
               type: 'info',
-              message: '已取消保存'
+              message: '已取消保存',
+              center: true
             });         
           });
 
