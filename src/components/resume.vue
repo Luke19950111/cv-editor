@@ -9,6 +9,11 @@
         <div class="left-item">保存</div>
         <div class="left-item">保存</div>
         <div class="left-item">保存</div>
+        <div class="left-item">登录</div>
+        <div>
+          
+        </div>
+        <div class="left-item" @click="onLogoutClick">退出</div>
       </el-col>
       <el-col :lg='20' class="right-content">
         <div class="resume">
@@ -204,6 +209,12 @@
 
 
         }
+      },
+
+      onLogoutClick(){
+        AV.User.logOut();
+        // 现在的 currentUser 是 null 了
+        let currentUser = AV.User.current();
       }
 
 
@@ -253,6 +264,7 @@
     margin: 1rem;
     border-radius: 5px;
     cursor: pointer;
+    word-wrap: wrap;
   }
   .left-aside .left-item:hover{
     box-shadow: 0 0 5px rgba(0,0,0,.3);

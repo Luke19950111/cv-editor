@@ -5,10 +5,10 @@
       <el-row>
         <el-form :model="dataForm">
           <el-form-item>
-            <el-input placeholder="请填写用户名"></el-input>
+            <el-input placeholder="请填写邮箱" v-model="dataForm.email"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-input placeholder="请填写密码"></el-input>
+            <el-input placeholder="请填写密码" v-model="dataForm.password"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="onSubmit" class="login-button">注册</el-button>
@@ -28,20 +28,40 @@
 </template>
 
 <script>
+  var AV = require('leancloud-storage');
+
 export default {
   name: 'Login',
   data () {
     return {
       dataForm: {
-        userName: '',
-        password: ''
+        password: '',
+        email: '',
       }
     }
   },
 
   methods: {
     onSubmit(){
-      console.log('登录')
+      // 新建 AVUser 对象实例
+      var user = new AV.User();
+      // 设置用户名
+      user.setUsername(this.dataForm.email);
+      // 设置密码
+      user.setPassword(this.dataForm.password);
+      // 设置邮箱
+      user.setEmail(this.dataForm.email);
+      user.signUp().then(function (loggedInUser) {
+          console.log(loggedInUser);
+          this.$message({
+            type: 'success',
+            message: '注册成功！已登录。',
+            center: true
+          });
+          window.location.href = window.location.href + 'login'
+      }, function (error) {
+        console.log(error, 'error')
+      });
     },
 
 
