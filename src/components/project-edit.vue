@@ -53,6 +53,7 @@
                 this.$message({
                   message: '编辑成功',
                   type: 'success',
+                  center: true,
                   duration: 1500,
                   onClose: () => {
                     this.visible = false

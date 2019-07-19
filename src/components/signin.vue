@@ -43,6 +43,8 @@ export default {
 
   methods: {
     onSubmit(){
+      const that = this
+
       // 新建 AVUser 对象实例
       var user = new AV.User();
       // 设置用户名
@@ -53,14 +55,21 @@ export default {
       user.setEmail(this.dataForm.email);
       user.signUp().then(function (loggedInUser) {
           console.log(loggedInUser);
-          this.$message({
+          console.log(window.location.href, 'href')
+          let nextHref = window.location.href
+          window.location.href = nextHref.split('#/', 1)
+          that.$message({
             type: 'success',
             message: '注册成功！已登录。',
             center: true
           });
-          window.location.href = window.location.href + 'login'
       }, function (error) {
         console.log(error, 'error')
+        that.$message({
+          type: 'fail',
+          message: error,
+          center: true
+        });
       });
     },
 

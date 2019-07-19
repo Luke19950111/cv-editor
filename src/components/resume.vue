@@ -9,11 +9,14 @@
         <div class="left-item">保存</div>
         <div class="left-item">保存</div>
         <div class="left-item">保存</div>
-        <div class="left-item">登录</div>
-        <div>
-          
+        <div v-show="avatarVisible">
+          <el-avatar> user </el-avatar>
+          <div>
+            {{user}}
+          </div>
         </div>
-        <div class="left-item" @click="onLogoutClick">退出</div>
+        <div class="left-item" @click="onLoginClick" v-show="loginButtonVisible">登录</div>
+        <div class="left-item" @click="onLogoutClick" v-show="avatarVisible">退出</div>
       </el-col>
       <el-col :lg='20' class="right-content">
         <div class="resume">
@@ -121,11 +124,17 @@
         },
         nameEditVisible: false,
         skillEditVisible: false,
-        projectEditVisible: false
+        projectEditVisible: false,
+        loginButtonVisible: true,
+        avatarVisible: false,
+        user: ''
       }
     },
     created() {
       this.initLeancloud()
+      this.checkLogStatus()
+
+
     },
     methods: {
       initLeancloud() {
@@ -188,8 +197,10 @@
 
         let currentUser = AV.User.current();
         console.log(currentUser, 'user')
+        //检查是否登录状态
         if (currentUser) {
-           // 跳转到首页
+           this.loginButtonVisible = false
+           this.avatarVisible = true
         }
         else {
           //currentUser 为空时，可打开用户注册界面…
@@ -211,11 +222,33 @@
         }
       },
 
+      //检查是否登录状态
+      checkLogStatus(){
+        let currentUser = AV.User.current();
+        console.log(currentUser, 'user')
+        this.user = currentUser.attributes.username
+        if (currentUser) {
+           this.loginButtonVisible = false
+           this.avatarVisible = true
+        }
+      },
+
       onLogoutClick(){
         AV.User.logOut();
         // 现在的 currentUser 是 null 了
         let currentUser = AV.User.current();
-      }
+        this.$message({
+          type: 'success',
+          message: '已退出登录',
+          center: true
+        }); 
+        this.loginButtonVisible = true
+        this.avatarVisible = false
+      },
+
+      onLoginClick(){
+        window.location.href = window.location.href + 'login'
+      },
 
 
 
