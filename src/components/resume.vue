@@ -246,11 +246,12 @@
       //检查是否登录状态
       checkLogStatus(){
         let currentUser = AV.User.current();
-        console.log(currentUser, 'user')
-        this.user = currentUser.attributes.username
+        console.log(currentUser, 'user111')
         if (currentUser) {
            this.loginButtonVisible = false
            this.avatarVisible = true
+           this.user = currentUser.attributes.username
+           this.resume = currentUser.attributes.resume
         }
       },
 
