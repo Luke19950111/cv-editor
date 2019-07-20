@@ -5,10 +5,10 @@
         <el-row>
           <el-form :model="dataForm">
             <el-form-item>
-              <el-input placeholder="请填写用户名"></el-input>
+              <el-input placeholder="请填写邮箱" v-model="dataForm.email"></el-input>
             </el-form-item>
             <el-form-item>
-              <el-input placeholder="请填写密码"></el-input>
+              <el-input placeholder="请填写密码" v-model="dataForm.password"></el-input>
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="onSubmit" class="login-button">登录</el-button>
@@ -28,12 +28,14 @@
   </template>
   
   <script>
+  var AV = require('leancloud-storage');
+
   export default {
     name: 'Login',
     data () {
       return {
         dataForm: {
-          userName: '',
+          email: '',
           password: ''
         }
       }
@@ -41,7 +43,29 @@
 
     methods: {
       onSubmit(){
+        const that = this
         console.log('登录')
+        AV.User.loginWithEmail(this.dataForm.email, this.dataForm.password).then(function (user) {
+          // 登录成功
+          console.log(user, '登录成功')
+          that.$message({
+            message: '登录成功！',
+            type: 'success',
+            center: true
+          })
+          let nextHref = window.location.href
+          window.location.href = nextHref.split('#/', 1)
+        }, function (error) {
+          // 登录失败（可能是密码错误）
+          console.log(error, '失败')
+          let x = JSON.parse(JSON.stringify(error))
+          console.log(x, 'stringgy')
+          console.log(x.rawMessage, 'aaa')
+          that.$message.error({
+            message: x.rawMessage ,
+            center: true
+          });
+        });
       },
 
 

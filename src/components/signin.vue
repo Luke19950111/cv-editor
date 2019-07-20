@@ -57,17 +57,17 @@ export default {
           console.log(loggedInUser);
           console.log(window.location.href, 'href')
           let nextHref = window.location.href
-          window.location.href = nextHref.split('#/', 1)
           that.$message({
             type: 'success',
             message: '注册成功！已登录。',
             center: true
           });
+          window.location.href = nextHref.split('#/', 1)
       }, function (error) {
         console.log(error, 'error')
-        that.$message({
-          type: 'fail',
-          message: error,
+        let x = JSON.parse(JSON.stringify(error))
+        that.$message.error({
+          message: x.rawMessage,
           center: true
         });
       });
