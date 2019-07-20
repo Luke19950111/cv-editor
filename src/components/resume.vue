@@ -5,18 +5,24 @@
         :lg='4'
         class="left-aside"
       >
-        <div class="left-item" @click="onSaveClick">保存</div>
-        <div class="left-item">保存</div>
-        <div class="left-item">保存</div>
-        <div class="left-item">保存</div>
-        <div v-show="avatarVisible">
-          <el-avatar> user </el-avatar>
-          <div>
-            {{user}}
-          </div>
+        <div>
+          <div class="left-item" @click="onSaveClick">保存</div>
+          <div class="left-item">保存</div>
+          <div class="left-item">保存</div>
+          <div class="left-item">保存</div>
         </div>
-        <div class="left-item" @click="onLoginClick" v-show="loginButtonVisible">登录</div>
-        <div class="left-item" @click="onLogoutClick" v-show="avatarVisible">退出</div>
+        <div>
+          <div v-show="avatarVisible">
+            <el-avatar :size="70">
+              <img src="../assets/image/timg.gif">
+            </el-avatar>
+            <div>
+              {{user}}
+            </div>
+          </div>
+          <div class="left-item" @click="onLoginClick" v-show="loginButtonVisible">登录</div>
+          <div class="left-item" @click="onLogoutClick" v-show="avatarVisible">退出</div>
+        </div>
       </el-col>
       <el-col :lg='20' class="right-content">
         <div class="resume">
@@ -201,6 +207,7 @@
         if (currentUser) {
            this.loginButtonVisible = false
            this.avatarVisible = true
+           this.saveResume()
         }
         else {
           //currentUser 为空时，可打开用户注册界面…
@@ -220,6 +227,20 @@
 
 
         }
+      },
+
+      saveResume(){
+        let {id} = AV.User.current();
+        console.log(id, 'id')
+        var user = AV.Object.createWithoutData('User', id);
+        user.set('resume', this.resume);
+        user.save().then(()=>{
+          this.$message({
+            type: 'success',
+            message: '保存成功',
+            center: true
+          })
+        })
       },
 
       //检查是否登录状态
@@ -289,7 +310,10 @@
 
   .left-aside{
     height: 100%;
-    background: rgb(243, 243, 243)    
+    background: rgb(243, 243, 243);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
   .left-aside .left-item{
     background: rgb(255, 255, 255);
