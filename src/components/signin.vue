@@ -55,14 +55,17 @@ export default {
       user.setEmail(this.dataForm.email);
       user.signUp().then(function (loggedInUser) {
           console.log(loggedInUser);
-          console.log(window.location.href, 'href')
-          let nextHref = window.location.href
           that.$message({
             type: 'success',
             message: '注册成功！已登录。',
             center: true
           });
-          window.location.href = nextHref.split('#/', 1)
+          // let nextHref = window.location.href
+          // window.location.href = nextHref.split('#/', 1)
+          that.$router.push({
+            path:'/',
+            
+          })
       }, function (error) {
         console.log(error, 'error')
         let x = JSON.parse(JSON.stringify(error))

@@ -37,8 +37,15 @@
         dataForm: {
           email: '',
           password: ''
-        }
+        },
+        editingResume: ''
       }
+    },
+    created() {
+      /* console.log(this.$route.query, 'query')
+      if(this.$route.query != {}){
+        this.editingResume = this.$route.query
+      } */
     },
 
     methods: {
@@ -53,8 +60,12 @@
             type: 'success',
             center: true
           })
-          let nextHref = window.location.href
-          window.location.href = nextHref.split('#/', 1)
+          // let nextHref = window.location.href
+          // window.location.href = nextHref.split('#/', 1)
+          that.$router.push({
+            path:'/',
+            // query: that.editingResume
+          })
         }, function (error) {
           // 登录失败（可能是密码错误）
           console.log(error, '失败')

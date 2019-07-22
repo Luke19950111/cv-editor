@@ -133,11 +133,21 @@
         projectEditVisible: false,
         loginButtonVisible: true,
         avatarVisible: false,
-        user: ''
+        user: '',
+        editingResume: '',
+        
       }
     },
     created() {
       this.initLeancloud()
+      
+      /* if(this.$route.query.skills[0].name){
+        this.editingResume = this.$route.query
+        console.log('zzz')
+      } */
+      // console.log(this.editingResume, 'eeee')
+      
+      
       this.checkLogStatus()
 
 
@@ -216,7 +226,11 @@
           cancelButtonText: '取消',
           type: 'warning'
           }).then(() => {
-              window.location.href = window.location.href + 'login'
+              // window.location.href = window.location.href + 'login'
+              this.$router.push({
+                path:'/login',
+                // query: this.resume
+              })
           }).catch(() => {
             this.$message({
               type: 'info',
@@ -251,7 +265,23 @@
            this.loginButtonVisible = false
            this.avatarVisible = true
            this.user = currentUser.attributes.username
-           this.resume = currentUser.attributes.resume
+           console.log(this.editingResume, 'pppp')
+           //有编辑中未保存的内容，保存
+           if(this.editingResume){
+             this.resume = this.editingResume
+             console.log(this.resume, 'iiiiiii')
+            //  this.saveResume()
+           }else{
+            //登录后展示当前用户resume
+            console.log('xxxxxx')
+            if(currentUser.attributes.resume){
+             this.resume = currentUser.attributes.resume
+             console.log(this.resume, 'oooooooo')
+            }
+           }
+           
+           
+           
         }
       },
 
@@ -269,7 +299,11 @@
       },
 
       onLoginClick(){
-        window.location.href = window.location.href + 'login'
+        // window.location.href = window.location.href + 'login'
+        this.$router.push({
+          path:'/login',
+          
+        })
       },
 
 
