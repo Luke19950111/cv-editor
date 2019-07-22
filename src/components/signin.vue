@@ -20,7 +20,7 @@
           <router-link :to="{path:'/login', query:{whichPage: whichPage, editingResume: editingResume}}">已经有账号，去登录</router-link>
         </el-button>
         <el-button type="text" class="to-sign-in">
-          <router-link to="/">返回编辑</router-link>
+          <router-link :to="{path:'/', query:{whichPage: 3, editingResume: editingResume}}">返回编辑</router-link>
         </el-button>
       </el-row>
     </div>

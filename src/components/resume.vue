@@ -146,13 +146,17 @@
       console.log(query, 'qqq')
       
       //???????未登录从保存跳转登录，成功后返回resume后再刷新，为何query有内容??????
-      if(query.editingResume.name){
-        this.fromPage = query.whichPage
-        this.editingResume = query.editingResume
-        console.log('111')
+      if(query.editingResume){
+        if(query.editingResume.name){
+          this.fromPage = query.whichPage
+          this.editingResume = query.editingResume
+          console.log('111')
+        }
       }
       console.log(this.fromPage, 'formPage')
-      //formPage == 1，未编辑；fromPage==2，未登录编辑后点击保存跳转注册/登录后再返回resume
+      //formPage == 1，未编辑；
+      //fromPage==2，未登录编辑后点击保存跳转注册/登录后再返回resume；
+      //fromPage==3，返回编辑按钮回到resume
       if(this.fromPage == 1){
         this.checkLogStatus()
         console.log('1')
@@ -160,6 +164,10 @@
         this.fromPage = 1
         this.fromOtherPage()
         console.log('2')
+      }else if(this.fromPage == 3){
+        this.fromPage = 1
+        this.resume = this.editingResume
+        console.log('333')
       }
 
 
