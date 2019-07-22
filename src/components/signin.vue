@@ -17,7 +17,7 @@
       </el-row>
       <el-row>
         <el-button type="text" class="to-sign-in">
-          <router-link to="/login">已经有账号，去登录</router-link>
+          <router-link :to="{path:'/login', query:{whichPage: whichPage, editingResume: editingResume}}">已经有账号，去登录</router-link>
         </el-button>
         <el-button type="text" class="to-sign-in">
           <router-link to="/">返回编辑</router-link>
@@ -37,8 +37,18 @@ export default {
       dataForm: {
         password: '',
         email: '',
-      }
+      },
+      whichPage: 1,
+      editingResume: '',
+      
     }
+  },
+
+  created() {
+    console.log(this.$route.query, 'querysignin')    
+    let query = this.$route.query
+    this.whichPage = query.whichPage
+    this.editingResume = query.editingResume
   },
 
   methods: {
@@ -60,14 +70,12 @@ export default {
             message: '注册成功！已登录。',
             center: true
           });
-          // let nextHref = window.location.href
-          // window.location.href = nextHref.split('#/', 1)
           that.$router.push({
             path:'/',
+            query: {editingResume: that.editingResume, whichPage: that.whichPage}
             
           })
       }, function (error) {
-        console.log(error, 'error')
         let x = JSON.parse(JSON.stringify(error))
         that.$message.error({
           message: x.rawMessage,

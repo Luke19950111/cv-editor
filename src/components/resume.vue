@@ -135,20 +135,32 @@
         avatarVisible: false,
         user: '',
         editingResume: '',
+        fromPage: 1,
         
       }
     },
     created() {
       this.initLeancloud()
+      console.log(this.$route.query, 'resumequery')
+      let query = this.$route.query
+      console.log(query, 'qqq')
       
-      /* if(this.$route.query.skills[0].name){
-        this.editingResume = this.$route.query
-        console.log('zzz')
-      } */
-      // console.log(this.editingResume, 'eeee')
-      
-      
-      this.checkLogStatus()
+      //???????未登录从保存跳转登录，成功后返回resume后再刷新，为何query有内容??????
+      if(query.editingResume.name){
+        this.fromPage = query.whichPage
+        this.editingResume = query.editingResume
+        console.log('111')
+      }
+      console.log(this.fromPage, 'formPage')
+      //formPage == 1，未编辑；fromPage==2，未登录编辑后点击保存跳转注册/登录后再返回resume
+      if(this.fromPage == 1){
+        this.checkLogStatus()
+        console.log('1')
+      }else if(this.fromPage == 2){
+        this.fromPage = 1
+        this.fromOtherPage()
+        console.log('2')
+      }
 
 
     },
@@ -179,7 +191,6 @@
         })
       },
       onNameEdited(dataForm){
-        console.log(dataForm, 'dataFOrm')
         this.resume = dataForm
         
       },
@@ -191,11 +202,8 @@
         })
       },
       onSkillEdited(skills, index){
-        console.log(skills, index, 'xxxxx')
         // this.resume.skills[index] = skills
         this.resume.skills.splice(index, 1, skills);
-        console.log(this.resume.skills[index], 'iii')
-        console.log(this.resume, 'resume')
       },
 
       onProjectsEdit(index){
@@ -229,7 +237,7 @@
               // window.location.href = window.location.href + 'login'
               this.$router.push({
                 path:'/login',
-                // query: this.resume
+                query: {editingResume: this.resume, whichPage: 2}
               })
           }).catch(() => {
             this.$message({
@@ -245,7 +253,6 @@
 
       saveResume(){
         let {id} = AV.User.current();
-        console.log(id, 'id')
         var user = AV.Object.createWithoutData('User', id);
         user.set('resume', this.resume);
         user.save().then(()=>{
@@ -265,22 +272,13 @@
            this.loginButtonVisible = false
            this.avatarVisible = true
            this.user = currentUser.attributes.username
-           console.log(this.editingResume, 'pppp')
-           //有编辑中未保存的内容，保存
-           if(this.editingResume){
-             this.resume = this.editingResume
-             console.log(this.resume, 'iiiiiii')
-            //  this.saveResume()
-           }else{
+           
             //登录后展示当前用户resume
             console.log('xxxxxx')
             if(currentUser.attributes.resume){
              this.resume = currentUser.attributes.resume
              console.log(this.resume, 'oooooooo')
             }
-           }
-           
-           
            
         }
       },
@@ -302,7 +300,32 @@
         // window.location.href = window.location.href + 'login'
         this.$router.push({
           path:'/login',
+          query: {editingResume: this.resume, whichPage: 1}
           
+        })
+      },
+
+      //从保存按钮到注册登录页在返回resume页时触发
+      fromOtherPage(){
+        this.resume = this.editingResume
+        console.log(this.resume, 'iiiiiii')
+        console.log(this.resume.name, 'nameeee')
+        
+        this.saveResume2()
+        console.log(this.fromPage, 'fromPageN')
+      },
+
+      saveResume2(){
+        let {id} = AV.User.current();
+        var user = AV.Object.createWithoutData('User', id);
+        user.set('resume', this.resume);
+        user.save().then(()=>{
+          this.$message({
+            type: 'success',
+            message: '保存成功',
+            center: true
+          })
+          this.checkLogStatus()
         })
       },
 

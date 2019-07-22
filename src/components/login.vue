@@ -17,7 +17,7 @@
         </el-row>
         <el-row>
           <el-button type="text" class="to-sign-in">
-            <router-link to="/signin">还没有账号，去注册</router-link>
+            <router-link :to="{path:'/signin', query:{whichPage: whichPage, editingResume: editingResume}}">还没有账号，去注册</router-link>
           </el-button>
           <el-button type="text" class="to-sign-in">
             <router-link to="/">返回编辑</router-link>
@@ -38,40 +38,36 @@
           email: '',
           password: ''
         },
-        editingResume: ''
+        editingResume: '',
+        whichPage: 1
       }
     },
     created() {
-      /* console.log(this.$route.query, 'query')
-      if(this.$route.query != {}){
-        this.editingResume = this.$route.query
-      } */
+      console.log(this.$route.query, 'query')
+      let query = this.$route.query
+      this.whichPage = query.whichPage
+      this.editingResume = query.editingResume
     },
 
     methods: {
       onSubmit(){
         const that = this
-        console.log('登录')
         AV.User.loginWithEmail(this.dataForm.email, this.dataForm.password).then(function (user) {
           // 登录成功
-          console.log(user, '登录成功')
           that.$message({
             message: '登录成功！',
             type: 'success',
             center: true
           })
-          // let nextHref = window.location.href
-          // window.location.href = nextHref.split('#/', 1)
           that.$router.push({
             path:'/',
-            // query: that.editingResume
+            query: {editingResume: that.editingResume, whichPage: that.whichPage}
+
           })
+          console.log('x1l2l34')
         }, function (error) {
           // 登录失败（可能是密码错误）
-          console.log(error, '失败')
           let x = JSON.parse(JSON.stringify(error))
-          console.log(x, 'stringgy')
-          console.log(x.rawMessage, 'aaa')
           that.$message.error({
             message: x.rawMessage ,
             center: true
