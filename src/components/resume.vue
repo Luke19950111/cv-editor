@@ -231,8 +231,8 @@
         console.log(currentUser, 'user')
         //检查是否登录状态
         if (currentUser) {
-           this.loginButtonVisible = false
-           this.avatarVisible = true
+          //  this.loginButtonVisible = false
+          //  this.avatarVisible = true
            this.saveResume()
         }
         else {
@@ -283,10 +283,28 @@
            
             //登录后展示当前用户resume
             console.log('xxxxxx')
+
+
+           
+
+
             if(currentUser.attributes.resume){
              this.resume = currentUser.attributes.resume
              console.log(this.resume, 'oooooooo')
             }
+             let that = this
+             let id = currentUser.id
+             let query = new AV.Query('User');
+              query.get(id).then(function (user) {
+                console.log(user, 'user888')
+                if(user.attributes.resume){
+                  let newResume = user.attributes.resume
+                  console.log(newResume, '7777')
+                  that.resume = newResume
+                  console.log(this.resume, '9999')
+                }
+                
+              })
            
         }
       },
@@ -315,6 +333,11 @@
 
       //从保存按钮到注册登录页在返回resume页时触发
       fromOtherPage(){
+        let currentUser = AV.User.current()
+        this.user = currentUser.attributes.username
+        this.loginButtonVisible = false
+        this.avatarVisible = true
+
         this.resume = this.editingResume
         console.log(this.resume, 'iiiiiii')
         console.log(this.resume.name, 'nameeee')
@@ -333,7 +356,6 @@
             message: '保存成功',
             center: true
           })
-          this.checkLogStatus()
         })
       },
 
