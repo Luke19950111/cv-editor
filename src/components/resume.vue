@@ -1,13 +1,17 @@
 <template>
-  <div>
+  <div class="all">
+    <el-row v-show="outPreviewVisible" class="top-notice">
+      <p>正在预览<span class="user-span">{{preUser}}</span>的简历，可点击<el-button type="text" @click="outPreview">退出预览</el-button>来编辑自己的简历！</p>
+    </el-row>
     <el-row class='wrapper'>
       <el-col
         :lg='4'
         class="left-aside"
+        v-show="mode"
       >
         <div>
           <div class="left-item" @click="onSaveClick">保存</div>
-          <div class="left-item">保存</div>
+          <div class="left-item" @click="onShareClick">分享</div>
           <div class="left-item">保存</div>
           <div class="left-item">保存</div>
         </div>
@@ -24,12 +28,12 @@
           <div class="left-item" @click="onLogoutClick" v-show="avatarVisible">退出</div>
         </div>
       </el-col>
-      <el-col :lg='20' class="right-content">
+      <el-col :lg='rightWidth' class="right-content">
         <div class="resume">
           <section>
             <el-row class="name-row">
               <h1 class="name">{{resume.name}}</h1>
-              <el-button class="name-edit-button" @click="onNameEdit">edit</el-button>
+              <el-button class="name-edit-button" @click="onNameEdit" v-show="mode">基本信息</el-button>
             </el-row>
             <el-row>
               <p>应聘职位：{{resume.jobTitle}}</p>
@@ -39,7 +43,7 @@
           <section>
             <el-row class="skill-name-row">
               <h2 class="skills">技能描述</h2>
-              <el-button @click="addSkills" class="skill-add-button">添加更多</el-button>
+              <el-button @click="addSkills" class="skill-add-button" v-show="mode">添加更多</el-button>
             </el-row>
             <el-row>
               <el-row :gutter='20'>
@@ -47,8 +51,8 @@
                     <el-card class="box-card" shadow="hover">
                       <div slot="header" class="clearfix">
                         <span style="float: left;">{{skill.name}}</span>
-                        <el-button style="float: right; padding: 3px 0" type="text" @click="onSkillsEdit(index)">操作按钮</el-button>
-                        <el-button style="float: right; padding: 3px 0; margin-right: 3px;" v-if="index>=4" type="text" @click="removeSkills(index)">删除</el-button>
+                        <el-button style="float: right; padding: 3px 0" type="text" @click="onSkillsEdit(index)" v-show="mode">编辑</el-button>
+                        <el-button style="float: right; padding: 3px 0; margin-right: 3px;" v-if="index>=4 && mode" type="text" @click="removeSkills(index)">删除</el-button>
                       </div>
                       <div>
                         {{skill.description}}
@@ -62,14 +66,14 @@
           <section>
             <el-row class="project-name-row">
               <h2 class="projects">项目经历</h2>
-              <el-button @click="addProjects" class="project-add-button">添加更多</el-button>
+              <el-button @click="addProjects" class="project-add-button" v-show="mode">添加更多</el-button>
             </el-row>
 
             <el-card class="project-card" shadow="hover" v-for="(project, index) in resume.projects" :key="index">
               <div slot="header" class="clearfix">
                 <span style="float: left;">{{project.name}}</span>
-                <el-button style="float: right; padding: 3px 0" type="text" @click="onProjectsEdit(index)">操作按钮</el-button>
-                <el-button style="float: right; padding: 3px 0; margin-right: 3px;" v-if="index>=3" type="text" @click="removeProjects(index)">删除</el-button>
+                <el-button style="float: right; padding: 3px 0" type="text" @click="onProjectsEdit(index)" v-show="mode">编辑</el-button>
+                <el-button style="float: right; padding: 3px 0; margin-right: 3px;" v-if="index>=3 && mode" type="text" @click="removeProjects(index)">删除</el-button>
               </div>
               <div>
                 <div class="project-card-body">
@@ -142,62 +146,63 @@
         user: '',
         editingResume: '',
         fromPage: 1,
+        mode: true,
+        rightWidth: 20,
+        outPreviewVisible: false,
+        preUser: ''
         
       }
     },
     created() {
-      this.initLeancloud()
-      console.log(this.$route.query, 'resumequery')
-      let query = this.$route.query
-      console.log(query, 'qqq')
-      
-      //???????未登录从保存跳转登录，成功后返回resume后再刷新，为何query有内容??????
-      if(query.editingResume){
-        if(query.editingResume.name){
-          this.fromPage = query.whichPage
-          this.editingResume = query.editingResume
-          console.log('111')
+
+      //判断是否预览模式
+      let isPreview = window.location.search.split('=')[0]
+      let previewId = window.location.search.split('=')[1]
+      console.log(isPreview, 'issiisisi')
+      console.log(previewId, 'preId')
+      if(isPreview){
+        this.mode = false
+        this.rightWidth = 24
+        this.outPreviewVisible = true
+        this.getPreviewResume(previewId)
+      }else{
+        this.mode = true
+        console.log(this.$route.query, 'resumequery')
+        let query = this.$route.query
+        console.log(query, 'qqq')
+        
+        //???????未登录从保存跳转登录，成功后返回resume后再刷新，为何query有内容??????
+        if(query.editingResume){
+          if(query.editingResume.name){
+            this.fromPage = query.whichPage
+            this.editingResume = query.editingResume
+            console.log('111')
+          }
+        }
+        console.log(this.fromPage, 'formPage')
+        //formPage == 1，未编辑；
+        //fromPage==2，未登录编辑后点击保存跳转注册/登录后再返回resume；
+        //fromPage==3，返回编辑按钮回到resume
+        if(this.fromPage == 1){
+          this.checkLogStatus()
+          console.log('1')
+        }else if(this.fromPage == 2){
+          this.fromPage = 1
+          this.fromOtherPage()
+          console.log('2')
+        }else if(this.fromPage == 3){
+          this.fromPage = 1
+          this.resume = this.editingResume
+          console.log('333')
         }
       }
-      console.log(this.fromPage, 'formPage')
-      //formPage == 1，未编辑；
-      //fromPage==2，未登录编辑后点击保存跳转注册/登录后再返回resume；
-      //fromPage==3，返回编辑按钮回到resume
-      if(this.fromPage == 1){
-        this.checkLogStatus()
-        console.log('1')
-      }else if(this.fromPage == 2){
-        this.fromPage = 1
-        this.fromOtherPage()
-        console.log('2')
-      }else if(this.fromPage == 3){
-        this.fromPage = 1
-        this.resume = this.editingResume
-        console.log('333')
-      }
+
+
 
 
     },
     methods: {
-      initLeancloud() {
-        // var AV = require('leancloud-storage');
-
-        /* var APP_ID = 'a2KJgfG27jM91H5weSdUSqox-gzGzoHsz';
-        var APP_KEY = 'fU28rPRP3cTSCQEULPfOHdkH';
-
-        AV.init({
-          appId: APP_ID,
-          appKey: APP_KEY
-        }); */
-
-        /* var TestObject = AV.Object.extend('TestObject');
-        var testObject = new TestObject();
-        testObject.save({
-          words: 'Hello World!'
-        }).then(function (object) {
-          alert('LeanCloud Rocks!');
-        }) */
-      },
+      
       onNameEdit(){
         this.nameEditVisible = true
         this.$nextTick(()=>{
@@ -377,6 +382,54 @@
       },
       removeProjects(index){
         this.resume.projects.splice(index, 1)
+      },
+
+      onShareClick(){
+        let currentUser = AV.User.current();
+        if(currentUser){
+          let id = currentUser.id
+          let shareLink = location.origin + location.pathname + '?user_id=' + id
+
+          this.$alert(shareLink, '请复制链接分享', {
+            confirmButtonText: '确定',
+          }).then(()=>{
+            console.log('复制成功')
+            /* this.$message({
+              type: 'success',
+              message: '复制成功',
+              center: true
+            }) */
+          })
+        }else{
+          this.$message({
+            type: 'info',
+            message: '请登录后再分享',
+            center: true
+          })
+        }
+      },
+
+      outPreview(){
+        this.mode = true
+        this.rightWidth = 20
+        this.outPreviewVisible = false
+        window.location.search = ''
+      },
+      getPreviewResume(id){
+        const that = this
+        let query = new AV.Query('User');
+        query.get(id).then(function (user) {
+          console.log(user, 'preUser')
+          that.preUser = user.attributes.username
+          if(user.attributes.resume){
+            console.log('xxx')
+            let preResume = user.attributes.resume
+            console.log(preResume, 'pre777')
+            that.resume = preResume
+            console.log(that.resume, 'pre999')
+          }
+          
+        })
       }
 
 
@@ -492,6 +545,24 @@
   .project-description{
     text-align: left;
     text-indent: 2em;
+  }
+
+  .top-notice{
+    border: 1px solid red;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 16px;
+    color: white;
+    width: 100%;
+    z-index: 1;
+    background: rgba(0, 0, 0, .5)
+  }
+  .top-notice > p{
+    padding: 10px;
+  }
+  .user-span{
+    color: rgb(0, 255, 0);
   }
 
 </style>
