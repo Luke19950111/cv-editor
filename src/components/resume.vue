@@ -37,8 +37,9 @@
             <p>生日：{{resume.birthday}}|性别：{{resume.gender}}|电话：{{resume.phone}}|邮箱：{{resume.email}}|地址：{{resume.address}}</p>
           </section>
           <section>
-            <el-row>
+            <el-row class="skill-name-row">
               <h2 class="skills">技能描述</h2>
+              <el-button @click="addSkills" class="skill-add-button">添加更多</el-button>
             </el-row>
             <el-row>
               <el-row :gutter='20'>
@@ -47,6 +48,7 @@
                       <div slot="header" class="clearfix">
                         <span style="float: left;">{{skill.name}}</span>
                         <el-button style="float: right; padding: 3px 0" type="text" @click="onSkillsEdit(index)">操作按钮</el-button>
+                        <el-button style="float: right; padding: 3px 0; margin-right: 3px;" v-if="index>=4" type="text" @click="removeSkills(index)">删除</el-button>
                       </div>
                       <div>
                         {{skill.description}}
@@ -58,12 +60,16 @@
             </el-row>
           </section>
           <section>
-            <h2 class="projects">项目经历</h2>
+            <el-row class="project-name-row">
+              <h2 class="projects">项目经历</h2>
+              <el-button @click="addProjects" class="project-add-button">添加更多</el-button>
+            </el-row>
 
             <el-card class="project-card" shadow="hover" v-for="(project, index) in resume.projects" :key="index">
               <div slot="header" class="clearfix">
                 <span style="float: left;">{{project.name}}</span>
                 <el-button style="float: right; padding: 3px 0" type="text" @click="onProjectsEdit(index)">操作按钮</el-button>
+                <el-button style="float: right; padding: 3px 0; margin-right: 3px;" v-if="index>=3" type="text" @click="removeProjects(index)">删除</el-button>
               </div>
               <div>
                 <div class="project-card-body">
@@ -292,19 +298,19 @@
              this.resume = currentUser.attributes.resume
              console.log(this.resume, 'oooooooo')
             }
-             let that = this
-             let id = currentUser.id
-             let query = new AV.Query('User');
-              query.get(id).then(function (user) {
-                console.log(user, 'user888')
-                if(user.attributes.resume){
-                  let newResume = user.attributes.resume
-                  console.log(newResume, '7777')
-                  that.resume = newResume
-                  console.log(this.resume, '9999')
-                }
-                
-              })
+            let that = this
+            let id = currentUser.id
+            let query = new AV.Query('User');
+            query.get(id).then(function (user) {
+              console.log(user, 'user888')
+              if(user.attributes.resume){
+                let newResume = user.attributes.resume
+                console.log(newResume, '7777')
+                that.resume = newResume
+                console.log(this.resume, '9999')
+              }
+              
+            })
            
         }
       },
@@ -358,6 +364,20 @@
           })
         })
       },
+
+      addSkills(){
+        this.resume.skills.push({name: '技能名称', description: '技能描述'})
+      },
+      removeSkills(index){
+        this.resume.skills.splice(index, 1)
+      },
+
+      addProjects(){
+        this.resume.projects.push({name: '项目名称', description: '项目描述', url: '项目链接', keywords: '关键字'})
+      },
+      removeProjects(index){
+        this.resume.projects.splice(index, 1)
+      }
 
 
 
@@ -437,6 +457,20 @@
     top: 2rem;
     right: 0;
   }
+
+  .skill-name-row, .project-name-row{
+    position: relative;
+  }
+  .skills{
+    margin-top: 1rem;
+  }
+  .skill-add-button, .project-add-button{
+    position: absolute;
+    top: 1rem;
+    right: 0;
+  }
+
+
   .right-content .skills, .projects{
     margin: 1rem;
   }
