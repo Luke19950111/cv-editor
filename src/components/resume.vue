@@ -11,10 +11,11 @@
         v-show="mode"
       >
         <div>
-          <div class="left-item" @click="onSaveClick">保存</div>
-          <div class="left-item" @click="onShareClick">分享</div>
-          <div class="left-item" @click="onPrintClick">打印</div>
-          <div class="left-item">保存</div>
+          <div class="left-item" @click="onSaveClick"><i class="el-icon-potato-strips"></i>保存</div>
+          <div class="left-item" @click="onShareClick"><i class="el-icon-cold-drink
+            "></i>分享</div>
+          <div class="left-item" @click="onPrintClick"><i class="el-icon-tableware"></i>打印</div>
+          <div class="left-item"><i class="el-icon-lollipop"></i>换肤</div>
         </div>
         <div>
           <div v-show="avatarVisible">
@@ -25,8 +26,9 @@
               {{user}}
             </div>
           </div>
-          <div class="left-item" @click="onLoginClick" v-show="loginButtonVisible">登录</div>
-          <div class="left-item" @click="onLogoutClick" v-show="avatarVisible">退出</div>
+          <div class="left-item" @click="onLoginClick" v-show="loginButtonVisible"><i class="el-icon-sugar"></i>登录</div>
+          <div class="left-item" @click="onLogoutClick" v-show="avatarVisible"><i class="el-icon-cherry
+            "></i>退出</div>
         </div>
       </el-col>
       <el-col :md='rightWidth' :lg='rightWidth' class="right-content">
@@ -34,7 +36,7 @@
           <section>
             <el-row class="name-row">
               <h1 class="name">{{resume.name}}</h1>
-              <el-button class="name-edit-button" @click="onNameEdit" v-show="mode">基本信息</el-button>
+              <el-button class="name-edit-button" @click="onNameEdit" v-show="mode" icon="el-icon-pear" type="success" plain round>基本信息</el-button>
             </el-row>
             <el-row>
               <p>应聘职位：{{resume.jobTitle}}</p>
@@ -44,14 +46,15 @@
           <section>
             <el-row class="skill-name-row">
               <h2 class="skills">技能描述</h2>
-              <el-button @click="addSkills" class="skill-add-button" v-show="mode">添加更多</el-button>
+              <el-button @click="addSkills" class="skill-add-button" v-show="mode" icon="el-icon-apple" type="success" plain round>添加更多</el-button>
             </el-row>
             <el-row>
               <el-row :gutter='20'>
                 <el-col :md='12' :lg='12' class="skill-item" v-for="(skill,index) in resume.skills" :key="index">
                     <el-card class="box-card" shadow="hover">
                       <div slot="header" class="clearfix">
-                        <span style="float: left;">{{skill.name}}</span>
+                        <span style="float: left;"><i class="
+                          el-icon-grape"></i>{{skill.name}}</span>
                         <el-button style="float: right; padding: 3px 0" type="text" @click="onSkillsEdit(index)" v-show="mode" class="edit-skill-project">编辑</el-button>
                         <el-button style="float: right; padding: 3px 0; margin-right: 3px;" v-if="index>=4 && mode" type="text" @click="removeSkills(index)">删除</el-button>
                       </div>
@@ -67,12 +70,13 @@
           <section>
             <el-row class="project-name-row">
               <h2 class="projects">项目经历</h2>
-              <el-button @click="addProjects" class="project-add-button" v-show="mode">添加更多</el-button>
+              <el-button @click="addProjects" class="project-add-button" v-show="mode" icon="el-icon-watermelon" type="success" plain round>添加更多</el-button>
             </el-row>
 
             <el-card class="project-card" shadow="hover" v-for="(project, index) in resume.projects" :key="index">
               <div slot="header" class="clearfix">
-                <span style="float: left;">{{project.name}}</span>
+                <span style="float: left;"><i class="
+                  el-icon-milk-tea"></i>{{project.name}}</span>
                 <el-button style="float: right; padding: 3px 0" type="text" @click="onProjectsEdit(index)" v-show="mode" class="edit-skill-project">编辑</el-button>
                 <el-button style="float: right; padding: 3px 0; margin-right: 3px;" v-if="index>=3 && mode" type="text" @click="removeProjects(index)">删除</el-button>
               </div>
@@ -492,6 +496,8 @@
   .left-aside .left-item:hover{
     box-shadow: 0 0 5px rgba(0,0,0,.3);
     transition: .3s;
+    color: white;
+    background: orange;
     transform: translateY(-5px);
   }
   .right-content{
@@ -578,4 +584,7 @@
     }
   }
 
+  i{
+    margin-right: .5em;
+  }
 </style>
