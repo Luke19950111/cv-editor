@@ -5,6 +5,7 @@
     </el-row>
     <el-row class='wrapper'>
       <el-col
+        :md='4'
         :lg='4'
         class="left-aside"
         v-show="mode"
@@ -12,7 +13,7 @@
         <div>
           <div class="left-item" @click="onSaveClick">保存</div>
           <div class="left-item" @click="onShareClick">分享</div>
-          <div class="left-item">保存</div>
+          <div class="left-item" @click="onPrintClick">打印</div>
           <div class="left-item">保存</div>
         </div>
         <div>
@@ -28,7 +29,7 @@
           <div class="left-item" @click="onLogoutClick" v-show="avatarVisible">退出</div>
         </div>
       </el-col>
-      <el-col :lg='rightWidth' class="right-content">
+      <el-col :md='rightWidth' :lg='rightWidth' class="right-content">
         <div class="resume">
           <section>
             <el-row class="name-row">
@@ -47,11 +48,11 @@
             </el-row>
             <el-row>
               <el-row :gutter='20'>
-                <el-col :lg='12' class="skill-item" v-for="(skill,index) in resume.skills" :key="index">
+                <el-col :md='12' :lg='12' class="skill-item" v-for="(skill,index) in resume.skills" :key="index">
                     <el-card class="box-card" shadow="hover">
                       <div slot="header" class="clearfix">
                         <span style="float: left;">{{skill.name}}</span>
-                        <el-button style="float: right; padding: 3px 0" type="text" @click="onSkillsEdit(index)" v-show="mode">编辑</el-button>
+                        <el-button style="float: right; padding: 3px 0" type="text" @click="onSkillsEdit(index)" v-show="mode" class="edit-skill-project">编辑</el-button>
                         <el-button style="float: right; padding: 3px 0; margin-right: 3px;" v-if="index>=4 && mode" type="text" @click="removeSkills(index)">删除</el-button>
                       </div>
                       <div>
@@ -72,7 +73,7 @@
             <el-card class="project-card" shadow="hover" v-for="(project, index) in resume.projects" :key="index">
               <div slot="header" class="clearfix">
                 <span style="float: left;">{{project.name}}</span>
-                <el-button style="float: right; padding: 3px 0" type="text" @click="onProjectsEdit(index)" v-show="mode">编辑</el-button>
+                <el-button style="float: right; padding: 3px 0" type="text" @click="onProjectsEdit(index)" v-show="mode" class="edit-skill-project">编辑</el-button>
                 <el-button style="float: right; padding: 3px 0; margin-right: 3px;" v-if="index>=3 && mode" type="text" @click="removeProjects(index)">删除</el-button>
               </div>
               <div>
@@ -430,6 +431,10 @@
           }
           
         })
+      },
+
+      onPrintClick(){
+        window.print()
       }
 
 
@@ -548,7 +553,6 @@
   }
 
   .top-notice{
-    border: 1px solid red;
     position: absolute;
     top: 0;
     left: 0;
@@ -563,6 +567,15 @@
   }
   .user-span{
     color: rgb(0, 255, 0);
+  }
+
+  @media print{
+    .left-aside, .name-edit-button, .skill-add-button, .project-add-button, .edit-skill-project{
+      display: none;
+    }
+    .right-content{
+      overflow: visible;
+    }
   }
 
 </style>
