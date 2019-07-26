@@ -34,18 +34,50 @@
       <el-col :md='rightWidth' :lg='rightWidth' class="right-content">
         <div class="resume">
           <section>
-            <el-row class="name-row">
-              <h1 class="name">{{resume.name}}</h1>
-              <el-button class="name-edit-button" @click="onNameEdit" v-show="mode" icon="el-icon-pear" type="success" plain round>基本信息</el-button>
-            </el-row>
+            
             <el-row>
-              <p>应聘职位：{{resume.jobTitle}}</p>
+              <el-col :md="16" :lg="16" class="name-left-info">
+                <el-row class="name-row">
+                  <h1 class="name">{{resume.name}}</h1>
+                  <el-button class="name-edit-button" @click="onNameEdit" v-show="mode" icon="el-icon-pear" type="success" plain round>基本信息</el-button>
+                </el-row>
+
+                <el-row>
+                  <el-col :md="24" :lg="12">
+                    <p><i class="el-icon-star-on"></i>应聘职位：{{resume.jobTitle}}</p>
+                    <p><i class="el-icon-s-shop"></i>生日：{{resume.birthday}}</p>
+                    <p><i class="el-icon-phone"></i>电话：{{resume.phone}}</p>
+                  </el-col>
+                  <el-col :md="24" :lg="12">
+                    <p><i class="el-icon-location"></i>工作地址：{{resume.address}}</p>
+                    <p><i class="el-icon-s-help"></i>性别：{{resume.gender}}</p>
+                    <p><i class="el-icon-s-promotion"></i>邮箱：{{resume.email}}</p>
+                  </el-col>
+                </el-row>
+
+
+                <!-- <el-row class="info-detail">
+                  <p style="margin-right: 2em;">应聘职位：{{resume.jobTitle}}</p><p>工作地址：{{resume.address}}</p>
+                </el-row>
+                <el-row class="info-detail">
+                  <p style="margin-right: 2em;">生日：{{resume.birthday}}</p><p>性别：{{resume.gender}}</p>
+                </el-row>
+                <el-row class="info-detail">
+                  <p style="margin-right: 2em;">电话：{{resume.phone}}</p><p>邮箱：{{resume.email}}</p>
+                </el-row> -->
+                
+              </el-col>
+
+              <el-col :md="8" :lg="8" class="right-photo-col">
+                <img src="../assets/image/zhangfei.jpg" class="photo">
+              </el-col>
             </el-row>
-            <p>生日：{{resume.birthday}}|性别：{{resume.gender}}|电话：{{resume.phone}}|邮箱：{{resume.email}}|地址：{{resume.address}}</p>
+
+
           </section>
           <section>
             <el-row class="skill-name-row">
-              <h2 class="skills">技能描述</h2>
+              <h2 class="skills">My Skills</h2>
               <el-button @click="addSkills" class="skill-add-button" v-show="mode" icon="el-icon-apple" type="success" plain round>添加更多</el-button>
             </el-row>
             <el-row>
@@ -69,7 +101,7 @@
           </section>
           <section>
             <el-row class="project-name-row">
-              <h2 class="projects">项目经历</h2>
+              <h2 class="projects">My Projects</h2>
               <el-button @click="addProjects" class="project-add-button" v-show="mode" icon="el-icon-watermelon" type="success" plain round>添加更多</el-button>
             </el-row>
 
@@ -514,12 +546,17 @@
     position: relative;
   }
   .name {
-    margin: 2rem;
+    margin: 2rem 0;
   }
   .name-edit-button{
     position: absolute;
     top: 2rem;
     right: 0;
+  }
+  .photo{
+    width: 60%;
+    margin-top: 2rem;
+    max-height: 150px;
   }
 
   .skill-name-row, .project-name-row{
@@ -576,15 +613,27 @@
   }
 
   @media print{
-    .left-aside, .name-edit-button, .skill-add-button, .project-add-button, .edit-skill-project{
+    .left-aside, .name-edit-button, .skill-add-button, .project-add-button, .edit-skill-project, .photo{
       display: none;
     }
     .right-content{
       overflow: visible;
     }
+    
   }
 
   i{
     margin-right: .5em;
+  }
+
+  .name-left-info{
+    text-align: left;
+  }
+  .right-photo-col{
+    text-align: right;
+  }
+  .info-detail{
+    display: flex;
+    justify-content: flex-start;
   }
 </style>
