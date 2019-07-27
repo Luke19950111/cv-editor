@@ -25,8 +25,14 @@
                           
                         </el-date-picker>
                     </el-form-item>
-                    <el-form-item label="性别">
-                        <el-input v-model="dataForm.gender" placeHolder="性别"></el-input>
+                    <el-form-item label="性别" class="gender-radio">
+                        <!-- <el-input v-model="dataForm.gender" placeHolder="性别"></el-input> -->
+                        <el-radio-group v-model="radio" @change="getGender">
+                          <el-radio :label="3">男孩</el-radio>
+                          <el-radio :label="6">女孩</el-radio>
+                          <el-radio :label="9">都不是</el-radio>
+                          <el-radio :label="12">secret</el-radio>
+                        </el-radio-group>
                     </el-form-item>
                     <el-form-item label="电话">
                         <el-input v-model="dataForm.phone" placeHolder="电话"></el-input>
@@ -60,7 +66,8 @@
                     phone: '',
                     email: '',
                     address: ''
-                }
+                },
+                radio: 9
             }
         },
         methods: {
@@ -103,6 +110,25 @@
             addSureTime(m) {
               return m<10?'0'+m:m
             } */
+
+            getGender(radio){
+                console.log(radio, 'xxx')
+                if(radio == 3){
+                    this.dataForm.gender = '男'
+                }else if(radio == 6){
+                    this.dataForm.gender = '女'
+                }else if(radio == 9){
+                    this.dataForm.gender = '???'
+                }else if(radio == 12){
+                    this.dataForm.gender = 'secret'
+                }
+            }
         },
     }
 </script>
+
+<style>
+    .gender-radio{
+        text-align: left;
+    }
+</style>
