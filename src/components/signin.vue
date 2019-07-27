@@ -139,6 +139,7 @@ export default {
   }
   .form-wrapper{
     width: 20%;
+    min-width: 284px;
     padding: 1rem 2rem;
     background: rgba(255, 255, 255, .8);
     border-radius: 5px;

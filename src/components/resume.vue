@@ -9,13 +9,14 @@
         :lg='4'
         class="left-aside"
         v-show="mode"
+        :style="leftBgStyle"
       >
         <div>
-          <div class="left-item" @click="onSaveClick"><i class="el-icon-potato-strips"></i>保存</div>
-          <div class="left-item" @click="onShareClick"><i class="el-icon-cold-drink
+          <div class="left-item" @click="onSaveClick" :style="leftItemStyle"><i class="el-icon-potato-strips"></i>保存</div>
+          <div class="left-item" @click="onShareClick" :style="leftItemStyle"><i class="el-icon-cold-drink
             "></i>分享</div>
-          <div class="left-item" @click="onPrintClick"><i class="el-icon-tableware"></i>打印</div>
-          <div class="left-item"><i class="el-icon-lollipop"></i>换肤</div>
+          <div class="left-item" @click="onPrintClick" :style="leftItemStyle"><i class="el-icon-tableware"></i>打印</div>
+          <div class="left-item" @click="onThemeEdit" :style="leftItemStyle"><i class="el-icon-lollipop"></i>主题</div>
         </div>
         <div>
           <div v-show="avatarVisible">
@@ -26,23 +27,23 @@
               {{user}}
             </div>
           </div>
-          <div class="left-item" @click="onLoginClick" v-show="loginButtonVisible"><i class="el-icon-sugar"></i>登录</div>
-          <div class="left-item" @click="onLogoutClick" v-show="avatarVisible"><i class="el-icon-cherry
+          <div class="left-item" @click="onLoginClick" v-show="loginButtonVisible" :style="leftItemStyle"><i class="el-icon-sugar"></i>登录</div>
+          <div class="left-item" @click="onLogoutClick" v-show="avatarVisible" :style="leftItemStyle"><i class="el-icon-cherry
             "></i>退出</div>
         </div>
       </el-col>
-      <el-col :md='rightWidth' :lg='rightWidth' class="right-content">
+      <el-col :md='rightWidth' :lg='rightWidth' class="right-content" :style="rightBgStyle">
         <div class="resume">
           <section>
             
             <el-row class="name-row-wrapper">
               <el-col :md="16" :lg="16" class="name-left-info">
                 <el-row class="name-row">
-                  <h1 class="name">{{resume.name}}</h1>
+                  <h1 class="name" :style="rightTextStyle">{{resume.name}}</h1>
                   <el-button class="name-edit-button" @click="onNameEdit" v-show="mode" icon="el-icon-pear" type="success" plain round>基本信息</el-button>
                 </el-row>
 
-                <el-row>
+                <el-row :style="rightTextStyle">
                   <el-col :md="24" :lg="12">
                     <p><i class="el-icon-star-on"></i>应聘职位：{{resume.jobTitle}}</p>
                     <p><i class="el-icon-s-shop"></i>生日：{{resume.birthday}}</p>
@@ -77,13 +78,13 @@
           </section>
           <section>
             <el-row class="skill-name-row">
-              <h2 class="skills">My Skills</h2>
+              <h2 class="skills" :style="rightTextStyle">My Skills</h2>
               <el-button @click="addSkills" class="skill-add-button" v-show="mode" icon="el-icon-apple" type="success" plain round>添加更多</el-button>
             </el-row>
             <el-row>
               <el-row :gutter='20'>
                 <el-col :md='12' :lg='12' class="skill-item" v-for="(skill,index) in resume.skills" :key="index">
-                    <el-card class="box-card" shadow="hover">
+                    <el-card class="box-card" shadow="hover" :style="rightItemStyle">
                       <div slot="header" class="clearfix">
                         <span style="float: left;"><i class="
                           el-icon-grape"></i>{{skill.name}}</span>
@@ -101,11 +102,11 @@
           </section>
           <section>
             <el-row class="project-name-row">
-              <h2 class="projects">My Projects</h2>
+              <h2 class="projects" :style="rightTextStyle">My Projects</h2>
               <el-button @click="addProjects" class="project-add-button" v-show="mode" icon="el-icon-watermelon" type="success" plain round>添加更多</el-button>
             </el-row>
 
-            <el-card class="project-card" shadow="hover" v-for="(project, index) in resume.projects" :key="index">
+            <el-card class="project-card" shadow="hover" v-for="(project, index) in resume.projects" :key="index" :style="rightItemStyle">
               <div slot="header" class="clearfix">
                 <span style="float: left;"><i class="
                   el-icon-milk-tea"></i>{{project.name}}</span>
@@ -128,6 +129,7 @@
     <name-edit v-show="nameEditVisible" ref="nameEdit" @nameEdited="onNameEdited"></name-edit>
     <skill-edit v-show="skillEditVisible" ref="skillEdit" @skillEdited="onSkillEdited"></skill-edit>
     <project-edit v-show="projectEditVisible" ref="projectEdit" @projectEdited="onProjectEdited"></project-edit>
+    <theme-edit v-show="themeEditVisible" ref="themeEdit" @themeEdited="onThemeEdited"></theme-edit>
   </div>
 </template>
 
@@ -144,12 +146,14 @@
   import NameEdit from './name-edit'
   import SkillEdit from './skill-edit'
   import ProjectEdit from './project-edit'
+  import ThemeEdit from './theme-edit'
   export default {
     name: 'resume',
     components: {
       NameEdit,
       SkillEdit,
-      ProjectEdit
+      ProjectEdit,
+      ThemeEdit
     },
     data() {
       return {
@@ -173,7 +177,14 @@
             {name: '项目名称', description: '项目描述', url: '项目链接', keywords: '关键字'},
             {name: '项目名称', description: '项目描述', url: '项目链接', keywords: '关键字'},
             {name: '项目名称', description: '项目描述', url: '项目链接', keywords: '关键字'}
-          ]
+          ],
+          colors: {
+            leftItemColor: 'rgb(255,255,255)',
+            leftBgColor: 'rgb(243,243,243)',
+            rightTextColor: 'rgb(0,0,0)',
+            rightBgColor: 'rgb(255,165,0)',
+            rightItemColor: 'rgb(255,255,255)'
+          }
         },
         nameEditVisible: false,
         skillEditVisible: false,
@@ -186,7 +197,13 @@
         mode: true,
         rightWidth: 20,
         outPreviewVisible: false,
-        preUser: ''
+        preUser: '',
+        themeEditVisible: false,
+        leftBgStyle: {},
+        leftItemStyle: {},
+        rightTextStyle: {},
+        rightBgStyle: {},
+        rightItemStyle: {}
         
       }
     },
@@ -271,6 +288,29 @@
       onProjectEdited(project, index){
         // this.resume.projects[index] = project
         this.resume.projects.splice(index, 1, project)
+      },
+      onThemeEdit(){
+        this.themeEditVisible = true
+        this.$nextTick(()=>{
+          this.$refs.themeEdit.init()
+        })
+      },
+      onThemeEdited(colors){
+        console.log(colors, '8888')
+        this.resume.colors.leftBgColor = colors.leftBgColor
+        this.leftBgStyle = {'background':colors.leftBgColor}
+
+        this.resume.colors.leftItemColor = colors.leftItemColor
+        this.leftItemStyle = {'background':colors.leftItemColor}
+
+        this.resume.colors.rightTextColor = colors.rightTextColor
+        this.rightTextStyle = {'color':colors.rightTextColor}
+
+        this.resume.colors.rightItemColor = colors.rightItemColor
+        this.rightItemStyle = {'background':colors.rightItemColor}
+
+        this.resume.colors.rightBgColor = colors.rightBgColor
+        this.rightBgStyle = {'background':colors.rightBgColor}
       },
 
       onSaveClick(){

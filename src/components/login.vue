@@ -123,6 +123,7 @@
     }
     .form-wrapper{
       width: 20%;
+      min-width: 284px;
       padding: 1rem 2rem;
       background: rgba(0, 0, 0, .8);
       border-radius: 5px;
