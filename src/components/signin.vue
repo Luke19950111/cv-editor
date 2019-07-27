@@ -1,5 +1,6 @@
 <template>
   <div class="login-wrapper">
+    <img src="../assets/image/login-bg.jpg" style="width:100%;height:100%;">
     <div class="form-wrapper">
       <h3 class="login-title">注册</h3>
       <el-row>
@@ -95,18 +96,29 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .login-wrapper{
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-image: url(../assets/image/login-bg.jpg);
-    background-size: cover;
+    /* height: 100vh; */
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* background-image: url(../assets/image/login-bg.jpg); */
+    /* background-size: cover; */
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
   }
   .form-wrapper{
     width: 20%;
     padding: 1rem 2rem;
     background: rgba(255, 255, 255, .8);
     border-radius: 5px;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+
   }
   .to-sign-in{
     padding: 0;
