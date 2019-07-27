@@ -35,7 +35,7 @@
         <div class="resume">
           <section>
             
-            <el-row>
+            <el-row class="name-row-wrapper">
               <el-col :md="16" :lg="16" class="name-left-info">
                 <el-row class="name-row">
                   <h1 class="name">{{resume.name}}</h1>
@@ -158,7 +158,7 @@
         resume: {
           name: '张飞',
           jobTitle: '三国第一谋士',
-          birthday: '约165年',
+          birthday: '0165-01-11',
           gender: '男',
           phone: '15900000001',
           email: 'zhangfei@shu.com',
@@ -541,6 +541,9 @@
   }
   .right-content .resume{
     width: 60%;
+  }
+  .name-row-wrapper{
+    margin-bottom: 1rem;
   }
   .name-row{
     position: relative;

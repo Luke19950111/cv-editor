@@ -10,7 +10,20 @@
                         <el-input v-model="dataForm.jobTitle" placeHolder="应聘职位"></el-input>
                     </el-form-item>
                     <el-form-item label="生日">
-                        <el-input v-model="dataForm.birthday" placeHolder="生日"></el-input>
+                        <!-- <el-input v-model="dataForm.birthday" placeHolder="生日"></el-input> -->
+                        <el-date-picker
+                          v-model="dataForm.birthday"
+                          type="date"
+                          placeholder="选择日期"
+                          @change="getBirthday"
+                          style="width: 100%;"
+                          :clearable="true"
+                          :editable="true"
+                          format="yyyy 年 MM 月 dd 日"
+                          value-format="yyyy-MM-dd"
+                        >
+                          
+                        </el-date-picker>
                     </el-form-item>
                     <el-form-item label="性别">
                         <el-input v-model="dataForm.gender" placeHolder="性别"></el-input>
@@ -68,6 +81,28 @@
                   }
                 })
             },
+            getBirthday(time){
+                console.log(time, 'time')
+                this.dataForm.birthday = time
+                /* this.dataForm.birthday = this.getTimeMethod(time)
+                console.log(this.getTimeMethod(time), 'xxx') */
+            },
+
+            //value-format="yyyy-MM-dd" 报错？默认填入的日期格式无法解析（约165年）
+            /* getTimeMethod(time){
+                let timeA = new Date(time);
+                let year = timeA.getFullYear();
+                let month = timeA.getMonth() + 1;
+                let date = timeA.getDate();
+                let hours = timeA.getHours();
+                let minutes = timeA.getMinutes();
+                let seconds = timeA.getSeconds();
+                let newD = year + '-' + this.addSureTime(month) + '-' + this.addSureTime(date) + ' ' + this.addSureTime(hours) + ':' + this.addSureTime(minutes) + ':' + this.addSureTime(seconds);
+                return newD
+            },
+            addSureTime(m) {
+              return m<10?'0'+m:m
+            } */
         },
     }
 </script>
