@@ -95,16 +95,18 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .login-wrapper{
-    border: 1px solid red;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-image: url(../assets/image/login-bg.jpg);
+    background-size: cover;
   }
   .form-wrapper{
-    border: 1px solid black;
-    width: 25%;
+    width: 20%;
     padding: 1rem 2rem;
+    background: rgba(255, 255, 255, .8);
+    border-radius: 5px;
   }
   .to-sign-in{
     padding: 0;

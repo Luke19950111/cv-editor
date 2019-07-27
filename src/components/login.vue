@@ -85,22 +85,25 @@
   <!-- Add "scoped" attribute to limit CSS to this component only -->
   <style scoped>
     .login-wrapper{
-      border: 1px solid red;
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
+      background-image: url("../assets/image/1.jpg");
+      background-size: cover;
     }
     .form-wrapper{
-      border: 1px solid black;
-      width: 25%;
+      width: 20%;
       padding: 1rem 2rem;
+      background: rgba(0, 0, 0, .8);
+      border-radius: 5px;
     }
     .to-sign-in{
       padding: 0;
     }
     .login-title{
       margin-bottom: 1rem;
+      color: white;
     }
     .login-button{
       width: 100%;
