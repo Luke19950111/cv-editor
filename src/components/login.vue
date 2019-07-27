@@ -1,5 +1,6 @@
 <template>
-    <div class="login-wrapper">
+    <div class="login-wrapper" :style="background">
+      <el-color-picker v-model="color" @change="onColorChange" class="login-color-picker" size="mini" show-alpha :predefine="predefineColors"></el-color-picker>
       <div class="form-wrapper">
         <h3 class="login-title">登录</h3>
         <el-row>
@@ -39,7 +40,28 @@
           password: ''
         },
         editingResume: '',
-        whichPage: 1
+        whichPage: 1,
+        color: null,
+        background: {
+          'background-image': "url('../assets/image/1.jpg');",
+          'background-size': 'cover'
+        },
+        predefineColors: [
+          '#ff4500',
+          '#ff8c00',
+          '#ffd700',
+          '#90ee90',
+          '#00ced1',
+          '#1e90ff',
+          '#c71585',
+          'rgba(255, 69, 0, 0.68)',
+          'rgb(255, 120, 0)',
+          'hsv(51, 100, 98)',
+          'hsva(120, 40, 94, 0.5)',
+          'hsl(181, 100%, 37%)',
+          'hsla(209, 100%, 56%, 0.73)',
+          '#c7158577'
+        ]
       }
     },
     created() {
@@ -75,6 +97,13 @@
         });
       },
 
+      onColorChange(color){
+        console.log(color, 'color')
+        this.color = color
+        this.background = {'background': color}
+        console.log(this.background, 'bababa')
+      }
+
 
 
     },
@@ -107,6 +136,11 @@
     }
     .login-button{
       width: 100%;
+    }
+    .login-color-picker{
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
     }
   </style>
   

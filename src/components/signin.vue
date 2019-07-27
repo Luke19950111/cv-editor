@@ -1,6 +1,7 @@
 <template>
-  <div class="login-wrapper">
-    <img src="../assets/image/login-bg.jpg" style="width:100%;height:100%;">
+  <div class="login-wrapper" :style="background">
+    <img src="../assets/image/login-bg.jpg" style="width:100%;height:100%;" v-show="showBgImg">
+    <el-color-picker v-model="color" @active-change="onColorChange" class="login-color-picker" size="mini" show-alpha :predefine="predefineColors"></el-color-picker>
     <div class="form-wrapper">
       <h3 class="login-title">注册</h3>
       <el-row>
@@ -41,7 +42,27 @@ export default {
       },
       whichPage: 1,
       editingResume: '',
-      
+      color: null,
+      background: {
+        
+      },
+      showBgImg: true,
+      predefineColors: [
+        '#ff4500',
+        '#ff8c00',
+        '#ffd700',
+        '#90ee90',
+        '#00ced1',
+        '#1e90ff',
+        '#c71585',
+        'rgba(255, 69, 0, 0.68)',
+        'rgb(255, 120, 0)',
+        'hsv(51, 100, 98)',
+        'hsva(120, 40, 94, 0.5)',
+        'hsl(181, 100%, 37%)',
+        'hsla(209, 100%, 56%, 0.73)',
+        '#c7158577'
+      ]
     }
   },
   
@@ -86,6 +107,14 @@ export default {
       });
     },
 
+    onColorChange(color){
+      this.showBgImg = false
+      console.log(color, 'color')
+      this.color = color
+      this.background = {'background': color}
+      console.log(this.background, 'bababa')
+    }
+
 
 
   },
@@ -128,5 +157,11 @@ export default {
   }
   .login-button{
     width: 100%;
+  }
+
+  .login-color-picker{
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
   }
 </style>
