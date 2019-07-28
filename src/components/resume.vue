@@ -241,6 +241,7 @@
         }else if(this.fromPage == 3){
           this.fromPage = 1
           this.resume = this.editingResume
+          this.getUserTheme()
         }
       }
 
@@ -437,6 +438,7 @@
         this.resume = this.editingResume
         
         this.saveResume2()
+        this.getUserTheme()
       },
 
       saveResume2(){
