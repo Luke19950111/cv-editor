@@ -299,23 +299,40 @@
       },
       onThemeEdited(colors){
         console.log(colors, '8888')
-        this.resume.colors.leftBgColor = colors.leftBgColor
-        this.leftBgStyle = {'background':colors.leftBgColor}
+        console.log(this.resume, 'xxxx555')
+        if(this.resume){
+          if(this.resume.colors){
+            this.resume.colors.leftBgColor = colors.leftBgColor
+            this.leftBgStyle = {'background':colors.leftBgColor}
+    
+            this.resume.colors.leftItemColor = colors.leftItemColor
+            this.leftItemStyle = {'background':colors.leftItemColor}
+    
+            this.resume.colors.leftUserColor = colors.leftUserColor
+            this.leftUserStyle = {'color':colors.leftUserColor}
+    
+            this.resume.colors.rightTextColor = colors.rightTextColor
+            this.rightTextStyle = {'color':colors.rightTextColor}
+    
+            this.resume.colors.rightItemColor = colors.rightItemColor
+            this.rightItemStyle = {'background':colors.rightItemColor}
+    
+            this.resume.colors.rightBgColor = colors.rightBgColor
+            this.rightBgStyle = {'background':colors.rightBgColor}
 
-        this.resume.colors.leftItemColor = colors.leftItemColor
-        this.leftItemStyle = {'background':colors.leftItemColor}
+          }
+        }
+      },
 
-        this.resume.colors.leftUserColor = colors.leftUserColor
-        this.leftUserStyle = {'color':colors.leftUserColor}
+      getUserTheme(){
+        console.log(this.resume.colors.leftBgColor, '333')
+        this.leftBgStyle = {'background':this.resume.colors.leftBgColor}
+        this.leftItemStyle = {'background':this.resume.colors.leftItemColor}
+        this.leftUserStyle = {'color':this.resume.colors.leftUserColor}
+        this.rightTextStyle = {'color':this.resume.colors.rightTextColor}
+        this.rightItemStyle = {'background':this.resume.colors.rightItemColor}
+        this.rightBgStyle = {'background':this.resume.colors.rightBgColor}
 
-        this.resume.colors.rightTextColor = colors.rightTextColor
-        this.rightTextStyle = {'color':colors.rightTextColor}
-
-        this.resume.colors.rightItemColor = colors.rightItemColor
-        this.rightItemStyle = {'background':colors.rightItemColor}
-
-        this.resume.colors.rightBgColor = colors.rightBgColor
-        this.rightBgStyle = {'background':colors.rightBgColor}
       },
 
       onSaveClick(){
@@ -355,6 +372,7 @@
       saveResume(){
         let {id} = AV.User.current();
         var user = AV.Object.createWithoutData('User', id);
+        console.log(this.resume, 'ytytyt')
         user.set('resume', this.resume);
         user.save().then(()=>{
           this.$message({
@@ -394,7 +412,12 @@
                 let newResume = user.attributes.resume
                 console.log(newResume, '7777')
                 that.resume = newResume
-                console.log(this.resume, '9999')
+                console.log(that.resume, '9999')
+                if(that.resume.colors){
+                  that.$nextTick(()=>{
+                    that.getUserTheme()
+                  })
+                }
               }
               
             })
@@ -509,6 +532,7 @@
             console.log(preResume, 'pre777')
             that.resume = preResume
             console.log(that.resume, 'pre999')
+            that.getUserTheme()
           }
           
         })
