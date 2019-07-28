@@ -84,7 +84,6 @@
         
       },
       dataFormSubmit() {
-        console.log(this.colors, 'colorsss')
         this.$message({
           message: '编辑成功',
           type: 'success',
@@ -97,7 +96,6 @@
         })
       },
       onLeftItemColorChange(color){
-        console.log(color, 'yyy')
         this.colors.leftItemColor = color
         this.leftItemStyle = {'background':color}
       },

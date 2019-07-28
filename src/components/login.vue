@@ -65,7 +65,6 @@
       }
     },
     created() {
-      console.log(this.$route.query, 'query')
       let query = this.$route.query
       this.whichPage = query.whichPage
       this.editingResume = query.editingResume
@@ -86,7 +85,6 @@
             query: {editingResume: that.editingResume, whichPage: that.whichPage}
 
           })
-          console.log('x1l2l34')
         }, function (error) {
           // 登录失败（可能是密码错误）
           let x = JSON.parse(JSON.stringify(error))
@@ -98,10 +96,8 @@
       },
 
       onColorChange(color){
-        console.log(color, 'color')
         this.color = color
         this.background = {'background': color}
-        console.log(this.background, 'bababa')
       }
 
 

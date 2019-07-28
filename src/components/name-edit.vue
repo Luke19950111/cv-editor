@@ -76,7 +76,6 @@
                 this.dataForm = JSON.parse(JSON.stringify(resume))
             },
             dataFormSubmit(){
-                console.log(this.dataForm, 'ddd')
                 this.$message({
                   message: '编辑成功',
                   type: 'success',
@@ -89,7 +88,6 @@
                 })
             },
             getBirthday(time){
-                console.log(time, 'time')
                 this.dataForm.birthday = time
                 /* this.dataForm.birthday = this.getTimeMethod(time)
                 console.log(this.getTimeMethod(time), 'xxx') */
@@ -112,7 +110,6 @@
             } */
 
             getGender(radio){
-                console.log(radio, 'xxx')
                 if(radio == 3){
                     this.dataForm.gender = '男'
                 }else if(radio == 6){

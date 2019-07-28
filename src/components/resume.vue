@@ -214,8 +214,6 @@
       //判断是否预览模式
       let isPreview = window.location.search.split('=')[0]
       let previewId = window.location.search.split('=')[1]
-      console.log(isPreview, 'issiisisi')
-      console.log(previewId, 'preId')
       if(isPreview){
         this.mode = false
         this.rightWidth = 24
@@ -223,33 +221,26 @@
         this.getPreviewResume(previewId)
       }else{
         this.mode = true
-        console.log(this.$route.query, 'resumequery')
         let query = this.$route.query
-        console.log(query, 'qqq')
         
         //???????未登录从保存跳转登录，成功后返回resume后再刷新，为何query有内容??????
         if(query.editingResume){
           if(query.editingResume.name){
             this.fromPage = query.whichPage
             this.editingResume = query.editingResume
-            console.log('111')
           }
         }
-        console.log(this.fromPage, 'formPage')
         //formPage == 1，未编辑；
         //fromPage==2，未登录编辑后点击保存跳转注册/登录后再返回resume；
         //fromPage==3，返回编辑按钮回到resume
         if(this.fromPage == 1){
           this.checkLogStatus()
-          console.log('1')
         }else if(this.fromPage == 2){
           this.fromPage = 1
           this.fromOtherPage()
-          console.log('2')
         }else if(this.fromPage == 3){
           this.fromPage = 1
           this.resume = this.editingResume
-          console.log('333')
         }
       }
 
@@ -298,8 +289,6 @@
         })
       },
       onThemeEdited(colors){
-        console.log(colors, '8888')
-        console.log(this.resume, 'xxxx555')
         if(this.resume){
           if(this.resume.colors){
             this.resume.colors.leftBgColor = colors.leftBgColor
@@ -325,7 +314,6 @@
       },
 
       getUserTheme(){
-        console.log(this.resume.colors.leftBgColor, '333')
         this.leftBgStyle = {'background':this.resume.colors.leftBgColor}
         this.leftItemStyle = {'background':this.resume.colors.leftItemColor}
         this.leftUserStyle = {'color':this.resume.colors.leftUserColor}
@@ -338,7 +326,6 @@
       onSaveClick(){
 
         let currentUser = AV.User.current();
-        console.log(currentUser, 'user')
         //检查是否登录状态
         if (currentUser) {
           //  this.loginButtonVisible = false
@@ -372,7 +359,6 @@
       saveResume(){
         let {id} = AV.User.current();
         var user = AV.Object.createWithoutData('User', id);
-        console.log(this.resume, 'ytytyt')
         user.set('resume', this.resume);
         user.save().then(()=>{
           this.$message({
@@ -386,14 +372,12 @@
       //检查是否登录状态
       checkLogStatus(){
         let currentUser = AV.User.current();
-        console.log(currentUser, 'user111')
         if (currentUser) {
            this.loginButtonVisible = false
            this.avatarVisible = true
            this.user = currentUser.attributes.username
            
             //登录后展示当前用户resume
-            console.log('xxxxxx')
 
 
            
@@ -401,18 +385,14 @@
 
             if(currentUser.attributes.resume){
              this.resume = currentUser.attributes.resume
-             console.log(this.resume, 'oooooooo')
             }
             let that = this
             let id = currentUser.id
             let query = new AV.Query('User');
             query.get(id).then(function (user) {
-              console.log(user, 'user888')
               if(user.attributes.resume){
                 let newResume = user.attributes.resume
-                console.log(newResume, '7777')
                 that.resume = newResume
-                console.log(that.resume, '9999')
                 if(that.resume.colors){
                   that.$nextTick(()=>{
                     that.getUserTheme()
@@ -455,11 +435,8 @@
         this.avatarVisible = true
 
         this.resume = this.editingResume
-        console.log(this.resume, 'iiiiiii')
-        console.log(this.resume.name, 'nameeee')
         
         this.saveResume2()
-        console.log(this.fromPage, 'fromPageN')
       },
 
       saveResume2(){
@@ -498,7 +475,6 @@
           this.$alert(shareLink, '请复制链接分享', {
             confirmButtonText: '确定',
           }).then(()=>{
-            console.log('复制成功')
             /* this.$message({
               type: 'success',
               message: '复制成功',
@@ -524,14 +500,10 @@
         const that = this
         let query = new AV.Query('User');
         query.get(id).then(function (user) {
-          console.log(user, 'preUser')
           that.preUser = user.attributes.username
           if(user.attributes.resume){
-            console.log('xxx')
             let preResume = user.attributes.resume
-            console.log(preResume, 'pre777')
             that.resume = preResume
-            console.log(that.resume, 'pre999')
             that.getUserTheme()
           }
           

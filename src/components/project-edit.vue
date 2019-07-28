@@ -42,14 +42,12 @@
         },
         methods: {
             init(project, index){
-                console.log(project, index, 'ii')
                 this.visible = true
                 // this.dataForm = project
                 this.dataForm = JSON.parse(JSON.stringify(project))
                 this.index = index
             },
             dataFormSubmit(){
-                console.log(this.dataForm, 'ddd')
                 this.$message({
                   message: '编辑成功',
                   type: 'success',

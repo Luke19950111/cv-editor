@@ -38,7 +38,6 @@
                 this.index = index
             },
             dataFormSubmit(){
-                console.log(this.dataForm, 'ddd')
                 this.$message({
                   message: '编辑成功',
                   type: 'success',

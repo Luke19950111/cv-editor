@@ -68,7 +68,6 @@ export default {
   
 
   created() {
-    console.log(this.$route.query, 'querysignin')    
     let query = this.$route.query
     this.whichPage = query.whichPage
     this.editingResume = query.editingResume
@@ -87,7 +86,6 @@ export default {
       // 设置邮箱
       user.setEmail(this.dataForm.email);
       user.signUp().then(function (loggedInUser) {
-          console.log(loggedInUser);
           that.$message({
             type: 'success',
             message: '注册成功！已登录。',
@@ -109,10 +107,8 @@ export default {
 
     onColorChange(color){
       this.showBgImg = false
-      console.log(color, 'color')
       this.color = color
       this.background = {'background': color}
-      console.log(this.background, 'bababa')
     }
 
 
