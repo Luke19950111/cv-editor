@@ -89,7 +89,7 @@
                         <span style="float: left;"><i class="
                           el-icon-grape"></i>{{skill.name}}</span>
                         <el-button style="float: right; padding: 3px 0" type="text" @click="onSkillsEdit(index)" v-show="mode" class="edit-skill-project">编辑</el-button>
-                        <el-button style="float: right; padding: 3px 0; margin-right: 3px;" v-if="index>=4 && mode" type="text" @click="removeSkills(index)">删除</el-button>
+                        <el-button style="float: right; padding: 3px 0; margin-right: 3px;" v-if="index>=4 && mode" type="text" @click="removeSkills(index)" class="item-remove">删除</el-button>
                       </div>
                       <div>
                         {{skill.description}}
@@ -111,7 +111,7 @@
                 <span style="float: left;"><i class="
                   el-icon-milk-tea"></i>{{project.name}}</span>
                 <el-button style="float: right; padding: 3px 0" type="text" @click="onProjectsEdit(index)" v-show="mode" class="edit-skill-project">编辑</el-button>
-                <el-button style="float: right; padding: 3px 0; margin-right: 3px;" v-if="index>=3 && mode" type="text" @click="removeProjects(index)">删除</el-button>
+                <el-button style="float: right; padding: 3px 0; margin-right: 3px;" v-if="index>=3 && mode" type="text" @click="removeProjects(index)" class="item-remove">删除</el-button>
               </div>
               <div>
                 <div class="project-card-body">
@@ -656,7 +656,7 @@
   }
 
   @media print{
-    .left-aside, .name-edit-button, .skill-add-button, .project-add-button, .edit-skill-project, .photo{
+    .left-aside, .name-edit-button, .skill-add-button, .project-add-button, .edit-skill-project, .photo, .item-remove{
       display: none;
     }
     .right-content{
