@@ -7,6 +7,10 @@
                     <el-color-picker v-model="colors.leftItemColor" @active-change="onLeftItemColorChange" class="left-item-color-picker" size="mini" show-alpha :predefine="predefineColors"></el-color-picker>
                     <p>左侧按钮</p>
                 </div>
+                <div class="left-user" :style="leftUserStyle">
+                    <el-color-picker v-model="colors.leftUserColor" @active-change="onLeftUserColorChange" class="left-user-color-picker" size="mini" show-alpha :predefine="predefineColors"></el-color-picker>
+                    <p>用户名</p>
+                </div>
                 <div class="left-bg">
                     <el-color-picker v-model="colors.leftBgColor" @active-change="onLeftBgColorChange" class="left-bg-color-picker" size="mini" show-alpha :predefine="predefineColors"></el-color-picker>
                     <p>左侧背景</p>
@@ -61,12 +65,14 @@
         colors: {
             leftItemColor: 'rgb(255,255,255)',
             leftBgColor: 'rgb(243,243,243)',
+            leftUserColor: 'rgb(0,0,0)',
             rightTextColor: 'rgb(0,0,0)',
             rightBgColor: 'rgb(255,165,0)',
             rightItemColor: 'rgb(255,255,255)'
         },
         leftItemStyle: {},
         leftBgStyle: {},
+        leftUserStyle: {},
         rightTextStyle: {},
         rightBgStyle: {},
         rightItemStyle: {}
@@ -98,6 +104,10 @@
       onLeftBgColorChange(color){
         this.colors.leftBgColor = color
         this.leftBgStyle = {'background':color}
+      },
+      onLeftUserColorChange(color){
+        this.colors.leftUserColor = color
+        this.leftUserStyle = {'color':color}
       },
       onRightTextColorChange(color){
         this.colors.rightTextColor = color

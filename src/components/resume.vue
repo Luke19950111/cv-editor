@@ -23,7 +23,7 @@
             <el-avatar :size="70">
               <img src="../assets/image/timg.gif">
             </el-avatar>
-            <div>
+            <div :style="leftUserStyle">
               {{user}}
             </div>
           </div>
@@ -181,6 +181,7 @@
           colors: {
             leftItemColor: 'rgb(255,255,255)',
             leftBgColor: 'rgb(243,243,243)',
+            leftUserColor: 'rgb(0,0,0)',
             rightTextColor: 'rgb(0,0,0)',
             rightBgColor: 'rgb(255,165,0)',
             rightItemColor: 'rgb(255,255,255)'
@@ -201,6 +202,7 @@
         themeEditVisible: false,
         leftBgStyle: {},
         leftItemStyle: {},
+        leftUserStyle: {},
         rightTextStyle: {},
         rightBgStyle: {},
         rightItemStyle: {}
@@ -302,6 +304,9 @@
 
         this.resume.colors.leftItemColor = colors.leftItemColor
         this.leftItemStyle = {'background':colors.leftItemColor}
+
+        this.resume.colors.leftUserColor = colors.leftUserColor
+        this.leftUserStyle = {'color':colors.leftUserColor}
 
         this.resume.colors.rightTextColor = colors.rightTextColor
         this.rightTextStyle = {'color':colors.rightTextColor}
@@ -568,7 +573,7 @@
   .left-aside .left-item:hover{
     box-shadow: 0 0 5px rgba(0,0,0,.3);
     transition: .3s;
-    color: white;
+    color: #dddddd;
     background: orange;
     transform: translateY(-5px);
   }
